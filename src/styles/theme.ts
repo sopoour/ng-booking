@@ -4,13 +4,13 @@ const theme = {
   media: getMedia,
   colors: {
     bg: {
-      default: '#111647',
-      soft: '#BCC1EB',
+      default: '#250564',
+      soft: '#6a32d8',
     },
     fg: {
       default: '#FFFFFF',
       contrast: '#000000',
-      inactive: 'rgba(255, 255, 255, 0.75)',
+      inactive: 'rgba(255, 255, 255, 0.50)',
     },
     accent: {
       pink: '#F535AA',

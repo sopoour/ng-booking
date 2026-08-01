@@ -10,6 +10,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   // TODO: Change description and title
   const metaDescription = 'Sophias portfolio description';
   const metaTitle = 'Sophias website';
+
   return (
     <>
       <Head>

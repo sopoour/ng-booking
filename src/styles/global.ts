@@ -1,13 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
 import theme from './theme';
-import { montserrat } from './fonts';
+import fonts from '@app/fonts/fonts';
 
 export const GlobalStyle = createGlobalStyle`
 
 html {
   color: black;
   font-size: 14px;
-  font-family: ${montserrat.style.fontFamily};
+  font-family: ${fonts.text.style.fontFamily};
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -57,7 +57,7 @@ a {
   }
 }
 button {
-  font-family: ${montserrat.style.fontFamily};
+  font-family: ${fonts.text.style.fontFamily};
   overflow: visible;
   cursor: pointer;
 }
@@ -72,6 +72,14 @@ p {
   :focus {
     outline: 3px solid ${theme.colors.accent.pink}
   }
+}
+
+h1, h2 {
+  font-family: ${fonts.header.style.fontFamily};
+}
+
+h3, h4 {
+  font-family: ${fonts.subheader.style.fontFamily};
 }
 
 button::-moz-focus-inner {

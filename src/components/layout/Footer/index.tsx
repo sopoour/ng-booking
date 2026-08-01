@@ -85,7 +85,7 @@ const Footer: FC = () => {
             © {currentYear} BRAND.
           </Typography>
           <Typography fontSize="12px" fontSizeSm="14px">
-            Entwickelt von
+            Entwickelt von {''}
             <Anchor href="https://www.fioauer.com/" target="_blank">
               Fio Auer
             </Anchor>
