@@ -13,17 +13,18 @@ const Player = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
 `;
 
 const Playlabel = styled(Typography)`
   font-family: ${fonts.subheader.style.fontFamily};
   position: absolute;
-  left: 30%;
+  left: 50%;
   top: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
   background-color: ${theme.colors.bg.default};
-  width: max-content;
+  padding: 0 4px;
   letter-spacing: 15%;
 `;
 
@@ -33,12 +34,14 @@ const AudioPlayer: FC = () => {
   const [play, setPlay] = useState<boolean>(false);
 
   const flatLine = () => `
-    M0 50
-    C60 48 100 47 140 49
-    C180 51 220 52 260 50
-    C300 48 340 47 380 49
-    C420 51 460 52 500 50
-    `;
+M0 50
+C60 49 120 48 180 49
+C240 50 300 51 360 50
+C420 49 480 48 540 49
+C600 50 660 52 720 50
+C780 49 840 48 900 49
+C940 50 970 51 1000 50
+`;
 
   const togglePlayback = () => {
     if (!audioRef.current) return;
@@ -53,7 +56,7 @@ const AudioPlayer: FC = () => {
   };
 
   const generateWave = (phase = 0, scale = 1) => {
-    const width = 500;
+    const width = 1000;
     const middle = 50;
 
     const amplitude = 35 * scale;

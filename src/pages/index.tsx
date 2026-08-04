@@ -35,7 +35,6 @@ const Home: NextPage = () => {
       </TopWrapper>
       <DetailContainer>
         <Typography $textalign="center">Some text</Typography>
-        <AudioPlayer />
       </DetailContainer>
     </Root>
   );
