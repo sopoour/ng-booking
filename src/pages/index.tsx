@@ -1,3 +1,4 @@
+import AudioPlayer from '@app/components/AudioPlayer';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
 import Typography from '@app/components/Typography/Typography';
 import { NextPage } from 'next';

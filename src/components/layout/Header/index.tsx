@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import useSidebar from '@app/hooks/useSidebar';
+import AudioPlayer from '@app/components/AudioPlayer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 24px;
   opacity: 1;
   transition: all 300ms ease-in-out;
   transform: none;
@@ -68,7 +70,6 @@ const BurgerMenu = styled.button`
   padding: 8px;
   width: 35px;
   height: 35px;
-  align-self: flex-end;
   align-items: center;
 
   justify-content: center;
@@ -108,7 +109,7 @@ const Header: React.FC = () => {
 
   return (
     <HeaderWrapper aria-label="Mobile header" id="mobile-header">
-      <div>Logo</div>
+      <AudioPlayer />
       <Navigation>
         <div>Item 1</div>
         <div>Item 2</div>
