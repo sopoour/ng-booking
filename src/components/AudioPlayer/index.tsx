@@ -55,16 +55,23 @@ C940 50 970 51 1000 50
     }
   };
 
-  const generateWave = (phase = 0, scale = 1) => {
+  const state = {
+    phase: 0,
+    progress: 0,
+  };
+
+  const generateWave = (phase = 0, scale = 1, progress = 1) => {
     const width = 1000;
     const middle = 50;
 
-    const amplitude = 35 * scale;
+    const amplitude = 20 * scale;
     const wavelength = 80;
+
+    const maxX = width * progress;
 
     let d = `M0 ${middle}`;
 
-    for (let x = 0; x <= width; x += 5) {
+    for (let x = 0; x <= maxX; x += 5) {
       const y = middle + Math.sin((x + phase) * ((Math.PI * 2) / wavelength)) * amplitude;
 
       d += ` L${x} ${y}`;
@@ -80,17 +87,20 @@ C940 50 970 51 1000 50
   }, []);
 
   useEffect(() => {
-    let phase = 0;
-
     const tick = () => {
-      phase -= 1;
+      state.phase--;
 
       const scale = 0.8 + Math.sin(performance.now() * 0.0015) * 0.2;
 
-      pathRef.current?.setAttribute('d', generateWave(phase, scale));
+      pathRef.current?.setAttribute('d', generateWave(state.phase, scale, state.progress));
     };
 
     if (play) {
+      gsap.to(state, {
+        progress: 1,
+        duration: 6,
+        ease: 'power2.out',
+      });
       gsap.ticker.add(tick);
     } else {
       gsap.ticker.remove(tick);
