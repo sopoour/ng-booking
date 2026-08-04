@@ -19,7 +19,6 @@ const HeaderWrapper = styled.div`
   padding: 8px 24px;
   justify-content: space-between;
   align-items: center;
-  align-content: center;
   width: 100%;
   gap: 24px;
   opacity: 1;
