@@ -6,6 +6,8 @@ import { flexRow } from '@app/styles/mixins';
 import Typography from '../Typography/Typography';
 import fonts from '@app/fonts/fonts';
 import theme from '@app/styles/theme';
+import { useMedia } from '@app/hooks/useMedia';
+import { Breakpoints } from '@app/styles/media';
 
 const Player = styled.div`
   ${flexRow};
@@ -20,8 +22,7 @@ const Playlabel = styled(Typography)`
   font-family: ${fonts.subheader.style.fontFamily};
   position: absolute;
   left: 50%;
-  top: 50%;
-  z-index: 1;
+  top: 48%;
   transform: translate(-50%, -50%);
   background-color: ${theme.colors.bg.default};
   padding: 0 4px;
@@ -32,6 +33,8 @@ const AudioPlayer: FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [play, setPlay] = useState<boolean>(false);
+
+  const isDesktop = useMedia(Breakpoints.xs);
 
   const flatLine = () => `
 M0 50
@@ -64,8 +67,8 @@ C940 50 970 51 1000 50
     const width = 1000;
     const middle = 50;
 
-    const amplitude = 20 * scale;
-    const wavelength = 80;
+    const amplitude = 30 * scale;
+    const wavelength = isDesktop ? 60 : 150;
 
     const maxX = width * progress;
 
@@ -98,7 +101,7 @@ C940 50 970 51 1000 50
     if (play) {
       gsap.to(state, {
         progress: 1,
-        duration: 6,
+        duration: 7.5,
         ease: 'power2.out',
       });
       gsap.ticker.add(tick);
@@ -109,7 +112,7 @@ C940 50 970 51 1000 50
         attr: {
           d: flatLine(),
         },
-        duration: 0.35,
+        duration: 0.9,
         ease: 'power2.out',
       });
     }
@@ -129,7 +132,7 @@ C940 50 970 51 1000 50
           <FaPlay style={{ width: '25px', height: '25px' }} />
         )}
       </button>
-      <svg width="100%" viewBox="0 0 1000 100" preserveAspectRatio="none" style={{ zIndex: 0 }}>
+      <svg width="100%" height={64} viewBox="0 0 1000 100" preserveAspectRatio="none">
         <path ref={pathRef} stroke="white" strokeWidth={4} fill="none" strokeLinecap="round" />
       </svg>
       {!play && <Playlabel type={fonts.subheader.style.fontFamily}>play radio</Playlabel>}
