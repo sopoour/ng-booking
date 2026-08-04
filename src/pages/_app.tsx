@@ -5,11 +5,13 @@ import { GlobalStyle } from '@app/styles/global';
 import { ThemeProvider } from 'styled-components';
 import theme from '@app/styles/theme';
 import Head from 'next/head';
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 
 const App = ({ Component, pageProps }: AppProps) => {
   // TODO: Change description and title
-  const metaDescription = 'Sophias portfolio description';
-  const metaTitle = 'Sophias website';
+  const metaDescription = 'NG-Booking';
+  const metaTitle = 'NG-Booking';
 
   return (
     <>
@@ -28,10 +30,12 @@ const App = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <MantineProvider withGlobalClasses withCssVariables forceColorScheme="light">
+          <GlobalStyle />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </MantineProvider>
       </ThemeProvider>
     </>
   );

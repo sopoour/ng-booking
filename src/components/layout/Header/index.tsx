@@ -5,6 +5,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import useSidebar from '@app/hooks/useSidebar';
 import AudioPlayer from '@app/components/AudioPlayer';
+import LangToggle from '@app/components/LangToggle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -110,10 +111,7 @@ const Header: React.FC = () => {
   return (
     <HeaderWrapper aria-label="Mobile header" id="mobile-header">
       <AudioPlayer />
-      <Navigation>
-        <div>Item 1</div>
-        <div>Item 2</div>
-      </Navigation>
+      <LangToggle />
 
       <BurgerMenu onClick={setOpen} id="burger-menu">
         <Line $isActive={open} />
