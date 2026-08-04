@@ -21,12 +21,17 @@ const Player = styled.div`
 const Playlabel = styled(Typography)`
   font-family: ${fonts.subheader.style.fontFamily};
   position: absolute;
-  left: 50%;
+  left: 60%;
   top: 48%;
   transform: translate(-50%, -50%);
   background-color: ${theme.colors.bg.default};
   padding: 0 4px;
   letter-spacing: 15%;
+  width: max-content;
+
+  ${({ theme }) => theme.media('xs')`
+    left: 50%;
+  `}
 `;
 
 const AudioPlayer: FC = () => {
