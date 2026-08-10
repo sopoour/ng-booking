@@ -33,7 +33,7 @@ const Root = styled.div`
 `;
 
 const MainLayout = styled.main`
-  min-height: 200vh;
+  min-height: 100vh;
   width: 100%;
   flex: 1;
   z-index: 2;
