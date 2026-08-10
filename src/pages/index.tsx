@@ -19,6 +19,7 @@ const TopWrapper = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding: 100px 0;
 `;
 
 const DetailContainer = styled.div`

@@ -1,10 +1,14 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from '../Sidebar';
 import { flexColumn } from '@app/styles/mixins';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { gsap } from 'gsap';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Root = styled.div`
   position: relative;
@@ -29,7 +33,7 @@ const Root = styled.div`
 `;
 
 const MainLayout = styled.main`
-  min-height: 100vh;
+  min-height: 200vh;
   width: 100%;
   flex: 1;
   z-index: 2;
@@ -40,13 +44,35 @@ type Props = {
   className?: string;
 };
 
-const Layout: FC<Props> = ({ children, className }) => (
-  <Root>
-    <Sidebar>Some content</Sidebar>
-    <Header />
-    <MainLayout className={className}>{children}</MainLayout>
-    <Footer />
-  </Root>
-);
+const Layout: FC<Props> = ({ children, className }) => {
+  useEffect(() => {
+    gsap.to('#logo', {
+      scale: 1,
+      ease: 'none',
+
+      scrollTrigger: {
+        trigger: '#main',
+        start: 'top 10%',
+        end: 'top 0%',
+        scrub: 1,
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  return (
+    <Root>
+      <Sidebar>Some content</Sidebar>
+      <Header />
+      <MainLayout className={className} id="main">
+        {children}
+      </MainLayout>
+      <Footer />
+    </Root>
+  );
+};
 
 export default Layout;
