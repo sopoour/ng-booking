@@ -17,6 +17,7 @@ export type Props = {
   color?: string;
   whiteSpace?: WhiteSpace;
   $isUpperCase?: boolean;
+  letterSpacing?: string;
 };
 
 const Typography = styled.p<Props>`
@@ -29,6 +30,7 @@ const Typography = styled.p<Props>`
   color: ${({ color, theme }) => color || theme.colors.fg.default};
   white-space: ${({ whiteSpace }) => whiteSpace || 'pre-wrap'};
   text-transform: ${({ $isUpperCase }) => ($isUpperCase ? 'uppercase' : 'none')};
+  letter-spacing: ${({ letterSpacing }) => letterSpacing || 1};
 `;
 
 export default Typography;

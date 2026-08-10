@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { css, styled } from 'styled-components';
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -6,17 +6,24 @@ import { flexColumn, flexRow } from '@app/styles/mixins';
 import useSidebar from '@app/hooks/useSidebar';
 import AudioPlayer from '@app/components/AudioPlayer';
 import LangToggle from '@app/components/LangToggle';
+import fonts from '@app/fonts/fonts';
+import Typography from '@app/components/Typography/Typography';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const HEADER_HEIGHT = 64;
 
 const HeaderWrapper = styled.div`
-  display: flex;
+  ${flexColumn}
   position: sticky;
   top: -1px;
   z-index: 5;
   min-height: ${HEADER_HEIGHT}px;
+  gap: 8px;
+`;
+
+const TopHeader = styled.div`
+  display: flex;
   padding: 8px 24px;
   justify-content: space-between;
   align-items: center;
@@ -25,13 +32,30 @@ const HeaderWrapper = styled.div`
   opacity: 1;
   transition: all 300ms ease-in-out;
   transform: none;
+  background-color: transparent;
+`;
+
+const LogoHeader = styled.span`
   background-color: ${({ theme }) => theme.colors.bg.default};
   backdrop-filter: ${({ theme }) => theme.filters.backdrop};
+  padding: 10px 24px 4px 24px;
+  justify-content: center;
+  align-items: center;
+  scale: 1.5;
 
-  /* ${({ theme }) => theme.media('md')`
-    transform: translateY(-100%);
-    opacity: 0;
-  `} */
+  ${Typography} {
+    font-size: 28px;
+    font-family: ${fonts.header.style.fontFamily};
+    text-align: center;
+    line-height: 1;
+    letter-spacing: 2%;
+  }
+
+  ${({ theme }) => theme.media('sm')`
+    ${Typography} {
+      font-size: 48px;
+    }
+  `}
 `;
 
 const Line = styled.span<{ $isActive: boolean }>`
@@ -78,7 +102,7 @@ const BurgerMenu = styled.button`
   gap: 3px;
   z-index: 100;
 
-  ${({ theme }) => theme.media('md')`
+  ${({ theme }) => theme.media('sm')`
     display: none;
   `}
 `;
@@ -94,31 +118,23 @@ const Navigation = styled.div`
 
 const Header: React.FC = () => {
   const { open, setOpen } = useSidebar((state) => state);
-  /* useEffect(() => {
-    gsap.set('#burger-menu', { opacity: 0 });
-    gsap.to('#burger-menu', {
-      duration: 1,
-      opacity: 1,
-      scrollTrigger: {
-        trigger: '#mobile-header',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      },
-    });
-  }, []); */
 
   return (
     <HeaderWrapper aria-label="Mobile header" id="mobile-header">
-      <AudioPlayer />
-      <LangToggle />
+      <TopHeader>
+        <AudioPlayer />
+        <LangToggle />
 
-      <BurgerMenu onClick={setOpen} id="burger-menu">
-        <Line $isActive={open} />
-        <Line $isActive={open} />
-        <Line $isActive={open} />
-        <span className="sr-only">Menu</span>
-      </BurgerMenu>
+        {/*  <BurgerMenu onClick={setOpen} id="burger-menu">
+          <Line $isActive={open} />
+          <Line $isActive={open} />
+          <Line $isActive={open} />
+          <span className="sr-only">Menu</span>
+        </BurgerMenu> */}
+      </TopHeader>
+      <LogoHeader id="logo">
+        <Typography>NG-Booking</Typography>
+      </LogoHeader>
     </HeaderWrapper>
   );
 };
