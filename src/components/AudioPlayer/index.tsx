@@ -8,6 +8,25 @@ import fonts from '@app/fonts/fonts';
 import theme from '@app/styles/theme';
 import { useMedia } from '@app/hooks/useMedia';
 import { Breakpoints } from '@app/styles/media';
+import useSWR from 'swr';
+import { Generell } from '@app/services/graphql/types';
+import useLang from '@app/hooks/useLang';
+import { fetcher } from '@app/hooks/fetch/useFetch';
+
+const flatLine = () => `
+M0 50
+C60 49 120 48 180 49
+C240 50 300 51 360 50
+C420 49 480 48 540 49
+C600 50 660 52 720 50
+C780 49 840 48 900 49
+C940 50 970 51 1000 50
+`;
+
+const state = {
+  phase: 0,
+  progress: 0,
+};
 
 const Player = styled.div`
   ${flexRow};
@@ -42,18 +61,10 @@ const AudioPlayer: FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [play, setPlay] = useState<boolean>(false);
-
   const isDesktop = useMedia(Breakpoints.xs);
+  const lang = useLang();
 
-  const flatLine = () => `
-M0 50
-C60 49 120 48 180 49
-C240 50 300 51 360 50
-C420 49 480 48 540 49
-C600 50 660 52 720 50
-C780 49 840 48 900 49
-C940 50 970 51 1000 50
-`;
+  const { data, isLoading } = useSWR<Generell | null>(`/api/general?lang=${lang}`, fetcher);
 
   const togglePlayback = () => {
     if (!audioRef.current) return;
@@ -65,11 +76,6 @@ C940 50 970 51 1000 50
       audioRef.current.pause();
       setPlay(false);
     }
-  };
-
-  const state = {
-    phase: 0,
-    progress: 0,
   };
 
   const generateWave = (phase = 0, scale = 1, progress = 1) => {
@@ -133,7 +139,7 @@ C940 50 970 51 1000 50
 
   return (
     <Player>
-      <audio ref={audioRef} src={`https://samplelib.com/mp3/sample-3s.mp3`} loop preload="none" />
+      <audio ref={audioRef} src={data?.ngRadio?.url || ''} loop preload="none" />
       <button onClick={togglePlayback} style={{ color: 'white' }}>
         {play ? (
           <FaPause style={{ width: '25px', height: '25px' }} />
