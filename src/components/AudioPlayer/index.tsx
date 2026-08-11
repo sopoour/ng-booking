@@ -23,14 +23,14 @@ const Playlabel = styled(Typography)`
   position: absolute;
   left: 60%;
   top: 48%;
-  transform: translate(-50%, -50%);
+  transform: translate(-60%, -48%);
   background-color: ${theme.colors.bg.default};
   padding: 0 4px;
   letter-spacing: 15%;
   width: max-content;
 
   ${({ theme }) => theme.media('xs')`
-    left: 50%;
+    left: 53%;
   `}
 `;
 

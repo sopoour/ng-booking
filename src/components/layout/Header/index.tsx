@@ -8,6 +8,7 @@ import AudioPlayer from '@app/components/AudioPlayer';
 import LangToggle from '@app/components/LangToggle';
 import fonts from '@app/fonts/fonts';
 import Typography from '@app/components/Typography/Typography';
+import theme from '@app/styles/theme';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,12 +20,13 @@ const HeaderWrapper = styled.div`
   top: -1px;
   z-index: 5;
   min-height: ${HEADER_HEIGHT}px;
-  gap: 8px;
+  background-color: transparent;
+  padding: 16px 24px;
+  /*  backdrop-filter: ${({ theme }) => theme.filters.backdrop}; */
 `;
 
 const TopHeader = styled.div`
   display: flex;
-  padding: 8px 24px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -32,12 +34,9 @@ const TopHeader = styled.div`
   opacity: 1;
   transition: all 300ms ease-in-out;
   transform: none;
-  background-color: transparent;
 `;
 
 const LogoHeader = styled.span`
-  background-color: ${({ theme }) => theme.colors.bg.default};
-  backdrop-filter: ${({ theme }) => theme.filters.backdrop};
   padding: 4px 24px;
   justify-content: center;
   align-items: center;
@@ -119,7 +118,7 @@ const Header: React.FC = () => {
   const { open, setOpen } = useSidebar((state) => state);
 
   return (
-    <HeaderWrapper aria-label="Mobile header" id="mobile-header">
+    <HeaderWrapper aria-label="Header" id="header">
       <TopHeader>
         <AudioPlayer />
         <LangToggle />

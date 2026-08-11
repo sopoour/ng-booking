@@ -7,6 +7,7 @@ import Sidebar from '../Sidebar';
 import { flexColumn } from '@app/styles/mixins';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { gsap } from 'gsap';
+import theme from '@app/styles/theme';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +55,17 @@ const Layout: FC<Props> = ({ children, className }) => {
         trigger: '#main',
         start: 'top 10%',
         end: 'top 0%',
+        scrub: 1,
+      },
+    });
+
+    gsap.to('#header', {
+      backgroundColor: theme.colors.bg.default,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#main',
+        start: 'top 10%',
+        end: 'top -5%',
         scrub: 1,
       },
     });
