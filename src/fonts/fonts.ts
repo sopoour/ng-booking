@@ -2,9 +2,11 @@ import localFont from 'next/font/local';
 import {Leckerli_One, Manrope} from 'next/font/google'
 
 const header = localFont({
-  src: "./Null_Free.otf",
-  variable: "--font-neue",
-  display: "swap",
+  src: "./Null-Normal.ttf",
+  weight: "400",
+  fallback: ["sans-serif"],
+  display: 'swap',
+  style: 'normal',
   preload: true,
 });
 
