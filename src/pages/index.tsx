@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     <Root>
       {data
         ?.sort((a, b) => (a.orderNumber as number) - (b.orderNumber as number))
-        .map((artist) => <ArtistShowcase artist={artist} />)}
+        .map((artist) => <ArtistShowcase artist={artist} key={artist.name + 'showcase'} />)}
     </Root>
   );
 };
