@@ -1,42 +1,38 @@
+import ArtistShowcase from '@app/components/ArtistShowcase';
 import AudioPlayer from '@app/components/AudioPlayer';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
 import Typography from '@app/components/Typography/Typography';
+import { fetcher } from '@app/hooks/fetch/useFetch';
+import useLang from '@app/hooks/useLang';
+import { Artist } from '@app/services/graphql/types';
+import { ArtistPreview } from '@app/types';
 import { NextPage } from 'next';
 import styled from 'styled-components';
+import useSWR from 'swr';
 
-const Root = styled.span`
+const Root = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 20px 0 32px 0;
-
+  gap: 120px;
+  padding-top: 80px;
+  padding-bottom: 48px;
   ${({ theme }) => theme.media('sm')`
-    padding: 30px 0 48px 0;
-  `}
-`;
-
-const TopWrapper = styled(MaxWidthContainer)`
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 100px 0;
-`;
-
-const DetailContainer = styled.div`
-  padding: 0 20px;
+    padding-top: 80px;
+    padding-bottom: 48px;
+  `};
 `;
 
 const Home: NextPage = () => {
+  const lang = useLang();
+  const { data, isLoading } = useSWR<ArtistPreview[] | null>(`/api/homepage?lang=${lang}`, fetcher);
+  if (isLoading) {
+    return <Typography>loading...</Typography>;
+  }
   return (
     <Root>
-      <TopWrapper>
-        <Typography $textalign="center" as="h1">
-          Some title
-        </Typography>
-      </TopWrapper>
-      <DetailContainer>
-        <Typography $textalign="center">Some text</Typography>
-      </DetailContainer>
+      {data
+        ?.sort((a, b) => (a.orderNumber as number) - (b.orderNumber as number))
+        .map((artist) => <ArtistShowcase artist={artist} key={artist.name + 'showcase'} />)}
     </Root>
   );
 };

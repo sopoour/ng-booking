@@ -8,7 +8,6 @@ import AudioPlayer from '@app/components/AudioPlayer';
 import LangToggle from '@app/components/LangToggle';
 import fonts from '@app/fonts/fonts';
 import Typography from '@app/components/Typography/Typography';
-import theme from '@app/styles/theme';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,10 +29,14 @@ const TopHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 24px;
+  gap: 12px;
   opacity: 1;
   transition: all 300ms ease-in-out;
   transform: none;
+
+  ${({ theme }) => theme.media('xs')`
+    gap: 24px;
+  `}
 `;
 
 const LogoHeader = styled.span`
