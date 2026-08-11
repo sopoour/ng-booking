@@ -38,7 +38,7 @@ const TopHeader = styled.div`
 const LogoHeader = styled.span`
   background-color: ${({ theme }) => theme.colors.bg.default};
   backdrop-filter: ${({ theme }) => theme.filters.backdrop};
-  padding: 10px 24px 4px 24px;
+  padding: 4px 24px;
   justify-content: center;
   align-items: center;
   scale: 1.5;
@@ -48,7 +48,6 @@ const LogoHeader = styled.span`
     font-family: ${fonts.header.style.fontFamily};
     text-align: center;
     line-height: 1;
-    letter-spacing: 2%;
   }
 
   ${({ theme }) => theme.media('sm')`
