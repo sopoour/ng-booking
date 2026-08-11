@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const maxContainerPadding = { mobile: 80, desktop: 24 };
+export const maxContainerPadding = { mobile: 24, desktop: 24 };
 
 type Props = {
   $maxwidth?: number;

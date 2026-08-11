@@ -11,17 +11,21 @@ import { Breakpoints } from '@app/styles/media';
 
 const Player = styled.div`
   ${flexRow};
-  gap: 24px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
   position: relative;
   width: 100%;
+
+  ${({ theme }) => theme.media('xs')`
+    gap: 24px;
+  `}
 `;
 
 const Playlabel = styled(Typography)`
   font-family: ${fonts.subheader.style.fontFamily};
   position: absolute;
-  left: 60%;
+  left: 62%;
   top: 48%;
   transform: translate(-60%, -48%);
   background-color: ${theme.colors.bg.default};
