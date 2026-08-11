@@ -5,7 +5,7 @@ import ContentfulImage from '@app/lib/contentful-image';
 import { Artist } from '@app/services/graphql/types';
 import { flexColumn } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
-import { Typography } from '@mantine/core';
+import Typography from '../Typography/Typography';
 import { FC } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
@@ -20,16 +20,28 @@ const ArtistWrapper = styled.section`
   margin: 0 auto;
 
   ${({ theme }) => theme.media('sm')`
-    width: 500px;
+    width: 550px;
   `}
 `;
 
 const ArtistTitle = styled(Typography)`
   position: absolute;
-  top: -50px;
+  top: -30px;
   z-index: 5;
   font-family: ${fonts.header.style.fontFamily};
-  font-size: 60px;
+  font-size: 52px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 0.85;
+  overflow-wrap: break-word;
+  text-shadow:
+    0 3px 4px rgba(80, 60, 130, 0.5),
+    0 7px 12px rgba(0, 0, 0, 0.25);
+
+  ${({ theme }) => theme.media('sm')`
+    font-size: 60px;
+  `}
 `;
 
 const ProfileImage = styled(ContentfulImage)`

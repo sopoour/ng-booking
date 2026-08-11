@@ -1,4 +1,6 @@
 import Typography from '@app/components/Typography/Typography';
+import fonts from '@app/fonts/fonts';
+import useLang from '@app/hooks/useLang';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,7 +15,7 @@ const FooterWrapper = styled.footer`
   max-height: 64px;
   padding: 12px 0;
   gap: 32px;
-  background-color: ${({ theme }) => theme.colors.bg.soft};
+  background-color: ${({ theme }) => theme.colors.bg.default};
   z-index: 2;
   color: ${({ theme }) => theme.colors.fg.contrast};
 `;
@@ -31,6 +33,7 @@ const FooterContent = styled.div`
 const Anchor = styled(Link)`
   color: white;
   font-weight: 600;
+  font-family: ${fonts.subheader.style.fontFamily};
   &:hover {
     text-decoration: underline !important;
     opacity: 0.8;
@@ -66,27 +69,38 @@ const FooterRowBottom = styled.div`
 `;
 
 const Footer: FC = () => {
+  const lang = useLang();
   const currentYear = new Date().getFullYear();
   const router = useRouter();
   return (
     <FooterWrapper>
       <FooterContent>
         <FooterRowTop>
-          <Anchor href="/bsp1">Beispiel-1</Anchor>
+          <Anchor href={`/ueber-uns${lang === 'en' ? '?lang=en' : ''}`}>
+            {lang === 'en' ? 'About' : 'Über uns'}
+          </Anchor>
           <Typography> | </Typography>
-          <Anchor href="/bsp2">Beispiel-2</Anchor>
+          <Anchor href={`/impressum${lang === 'en' ? '?lang=en' : ''}`}>Impressum</Anchor>
           <Typography> | </Typography>
-          <Anchor href="/bsp3">Beispiel-2</Anchor>
+          <Anchor href={`/datenschutz${lang === 'en' ? '?lang=en' : ''}`}>
+            {lang === 'en' ? 'Privacy Policy' : 'Datenschutz'}
+          </Anchor>
           <Typography> | </Typography>
-          <Anchor href="/bsp4">Beispiel-4</Anchor>
+          <Anchor href={`/contact${lang === 'en' ? '?lang=en' : ''}`}>
+            {lang === 'en' ? 'Contact' : 'Kontakt'}
+          </Anchor>
         </FooterRowTop>
         <FooterRowBottom>
           <Typography fontSize="12px" fontSizeSm="14px">
-            © {currentYear} BRAND.
+            © {currentYear} NG-Booking.
           </Typography>
           <Typography fontSize="12px" fontSizeSm="14px">
             Entwickelt von {''}
-            <Anchor href="https://www.fioauer.com/" target="_blank">
+            <Anchor
+              href="https://www.fioauer.com/"
+              target="_blank"
+              style={{ fontFamily: `${fonts.text.style.fontFamily} !important` }}
+            >
               Fio Auer
             </Anchor>
           </Typography>

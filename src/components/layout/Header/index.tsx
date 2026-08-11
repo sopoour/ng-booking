@@ -46,7 +46,7 @@ const LogoHeader = styled.span`
   scale: 1.5;
 
   ${Typography} {
-    font-size: 28px;
+    font-size: 32px;
     font-family: ${fonts.header.style.fontFamily};
     text-align: center;
     line-height: 1;
