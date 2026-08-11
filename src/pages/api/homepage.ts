@@ -27,8 +27,6 @@ export default async function getHomepage(req: NextApiRequest, res: NextApiRespo
         { locale }
     );
 
-    console.log(data)
-
     res.status(200).json(data.data.artistCollection.items);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
