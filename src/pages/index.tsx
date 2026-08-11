@@ -10,15 +10,16 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 import useSWR from 'swr';
 
-const Root = styled.span`
+const Root = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
   gap: 120px;
-  padding: 20px 0 32px 0;
-
+  padding-top: 80px;
+  padding-bottom: 48px;
   ${({ theme }) => theme.media('sm')`
-    padding: 80px 0 48px 0;
-  `}
+    padding-top: 80px;
+    padding-bottom: 48px;
+  `};
 `;
 
 const Home: NextPage = () => {

@@ -14,10 +14,14 @@ const ArtistWrapper = styled.section`
   ${flexColumn};
   position: relative;
   gap: 40px;
-  width: 500px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+
+  ${({ theme }) => theme.media('sm')`
+    width: 500px;
+  `}
 `;
 
 const ArtistTitle = styled(Typography)`
