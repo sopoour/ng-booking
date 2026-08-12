@@ -95,7 +95,7 @@ const Footer: FC = () => {
             © {currentYear} NG-Booking.
           </Typography>
           <Typography fontSize="12px" fontSizeSm="14px">
-            Entwickelt von {''}
+            {lang === 'en' ? 'Developed by' : 'Entwickelt von'}{' '}
             <Anchor
               href="https://www.fioauer.com/"
               target="_blank"
