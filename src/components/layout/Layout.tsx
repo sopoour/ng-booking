@@ -8,6 +8,7 @@ import { flexColumn } from '@app/styles/mixins';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { gsap } from 'gsap';
 import theme from '@app/styles/theme';
+import { useRouter } from 'next/router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,18 +47,41 @@ type Props = {
 };
 
 const Layout: FC<Props> = ({ children, className }) => {
-  useEffect(() => {
-    gsap.to('#logo', {
-      scale: 1,
-      ease: 'none',
+  const router = useRouter();
+  const isHome = router.pathname === '/';
 
-      scrollTrigger: {
-        trigger: '#main',
-        start: 'top 10%',
-        end: 'top 0%',
-        scrub: 1,
-      },
+  useEffect(() => {
+    gsap.set('#logo', {
+      scale: isHome ? 1.5 : 1,
     });
+  }, [router.pathname]);
+
+  useEffect(() => {
+    if (isHome) {
+      gsap.fromTo(
+        '#logo',
+        {
+          scale: 1,
+        },
+        {
+          scale: 1.5,
+          duration: 0.8,
+          ease: 'power2.out',
+          onComplete: () => {
+            gsap.to('#logo', {
+              scale: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#main',
+                start: 'top 10%',
+                end: 'top 0%',
+                scrub: 1,
+              },
+            });
+          },
+        },
+      );
+    }
 
     gsap.to('#header', {
       backgroundColor: theme.colors.bg.default,
@@ -73,8 +97,24 @@ const Layout: FC<Props> = ({ children, className }) => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [isHome]);
 
+  useEffect(() => {
+    gsap.to('#header', {
+      backgroundColor: theme.colors.bg.default,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#main',
+        start: 'top 10%',
+        end: 'top -5%',
+        scrub: 1,
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
   return (
     <Root>
       <Sidebar>Some content</Sidebar>

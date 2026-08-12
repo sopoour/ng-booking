@@ -2,12 +2,13 @@ import React from 'react';
 import { css, styled } from 'styled-components';
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { flexColumn, flexRow } from '@app/styles/mixins';
+import { flexColumn, flexRow, slowTransition } from '@app/styles/mixins';
 import useSidebar from '@app/hooks/useSidebar';
 import AudioPlayer from '@app/components/AudioPlayer';
 import LangToggle from '@app/components/LangToggle';
 import fonts from '@app/fonts/fonts';
 import Typography from '@app/components/Typography/Typography';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +22,7 @@ const HeaderWrapper = styled.div`
   min-height: ${HEADER_HEIGHT}px;
   background-color: transparent;
   padding: 16px 24px;
+  ${slowTransition};
   /*  backdrop-filter: ${({ theme }) => theme.filters.backdrop}; */
 `;
 
@@ -39,11 +41,10 @@ const TopHeader = styled.div`
   `}
 `;
 
-const LogoHeader = styled.span`
+const LogoHeader = styled(Link)`
   padding: 4px 24px;
   justify-content: center;
   align-items: center;
-  scale: 1.5;
 
   ${Typography} {
     font-size: 32px;
@@ -133,7 +134,7 @@ const Header: React.FC = () => {
           <span className="sr-only">Menu</span>
         </BurgerMenu> */}
       </TopHeader>
-      <LogoHeader id="logo">
+      <LogoHeader id="logo" href={'/'}>
         <Typography>NG-Booking</Typography>
       </LogoHeader>
     </HeaderWrapper>
