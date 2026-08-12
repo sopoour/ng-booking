@@ -1,4 +1,5 @@
 import ArtistShowcase from '@app/components/ArtistShowcase';
+import ArtistShowcaseSkeleton from '@app/components/ArtistShowcase/ArtistShowcaseSkeleton';
 import AudioPlayer from '@app/components/AudioPlayer';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
 import Typography from '@app/components/Typography/Typography';
@@ -25,9 +26,15 @@ const Root = styled(MaxWidthContainer)`
 const Home: NextPage = () => {
   const lang = useLang();
   const { data, isLoading } = useSWR<ArtistPreview[] | null>(`/api/homepage?lang=${lang}`, fetcher);
+
   if (isLoading) {
-    return <Typography>loading...</Typography>;
+    return (
+      <Root>
+        <ArtistShowcaseSkeleton />
+      </Root>
+    );
   }
+
   return (
     <Root>
       {data

@@ -10,7 +10,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 
-const ArtistWrapper = styled.section`
+export const ArtistWrapper = styled.section`
   ${flexColumn};
   position: relative;
   gap: 40px;

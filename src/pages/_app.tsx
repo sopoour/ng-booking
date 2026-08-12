@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from '@app/styles/theme';
 import Head from 'next/head';
 import '@mantine/core/styles.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { MantineProvider } from '@mantine/core';
 
 const App = ({ Component, pageProps }: AppProps) => {
