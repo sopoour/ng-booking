@@ -79,7 +79,9 @@ const Artist: FC = () => {
     <Container>
       <Flex direction={'column'} gap={'0px'}>
         <Title>{artist?.name}</Title>
-        <GenreWrapper>{artist?.genre?.map((g) => <Genre>{g}</Genre>)}</GenreWrapper>
+        <GenreWrapper>
+          {artist?.genre?.map((g) => <Genre key={g + (artist?.name || '')}>{g}</Genre>)}
+        </GenreWrapper>
       </Flex>
 
       <PressWrapper>
