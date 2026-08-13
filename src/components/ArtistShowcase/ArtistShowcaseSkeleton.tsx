@@ -17,12 +17,17 @@ const ProfilePicSkeleton = styled(Skeleton)`
 const TitleSkeleton = styled(Skeleton)`
   && {
     position: absolute;
+    top: -10px;
+    left: 28%;
+    z-index: 5;
+    width: 200px;
+    height: 20px;
+    text-align: center;
+
+    ${({ theme }) => theme.media('sm')`
     top: -20px;
     left: 22%;
-    z-index: 5;
-    width: 300px;
-    height: 51px;
-    text-align: center;
+  `}
   }
 `;
 

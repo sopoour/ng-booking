@@ -8,7 +8,7 @@ type Props = {
 const MaxWidthContainer = styled.div<Props>`
   padding-left: ${maxContainerPadding.mobile}px;
   padding-right: ${maxContainerPadding.mobile}px;
-  margin: 0 auto;
+  margin: 40px auto;
   min-height: unset;
   height: unset;
   max-width: ${(props) => props.$maxwidth}px;
