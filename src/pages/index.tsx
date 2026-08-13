@@ -15,8 +15,6 @@ const Root = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
   gap: 120px;
-  padding-top: 80px;
-  padding-bottom: 48px;
   ${({ theme }) => theme.media('sm')`
     padding-top: 80px;
     padding-bottom: 48px;
