@@ -13,21 +13,6 @@ import { Generell } from '@app/services/graphql/types';
 import useLang from '@app/hooks/useLang';
 import { fetcher } from '@app/hooks/fetch/useFetch';
 
-const flatLine = () => `
-M0 50
-C60 49 120 48 180 49
-C240 50 300 51 360 50
-C420 49 480 48 540 49
-C600 50 660 52 720 50
-C780 49 840 48 900 49
-C940 50 970 51 1000 50
-`;
-
-const state = {
-  phase: 0,
-  progress: 0,
-};
-
 const Player = styled.div`
   ${flexRow};
   gap: 12px;
@@ -70,7 +55,20 @@ const AudioPlayer: FC<Props> = ({ label = 'radio', audioSrc }) => {
   const lang = useLang();
 
   const { data, isLoading } = useSWR<Generell | null>(`/api/general?lang=${lang}`, fetcher);
+  const flatLine = () => `
+M0 50
+C60 49 120 48 180 49
+C240 50 300 51 360 50
+C420 49 480 48 540 49
+C600 50 660 52 720 50
+C780 49 840 48 900 49
+C940 50 970 51 1000 50
+`;
 
+  const state = {
+    phase: 0,
+    progress: 0,
+  };
   const togglePlayback = () => {
     if (!audioRef.current) return;
 
@@ -140,7 +138,7 @@ const AudioPlayer: FC<Props> = ({ label = 'radio', audioSrc }) => {
     return () => {
       gsap.ticker.remove(tick);
     };
-  }, [play, pathRef, state]);
+  }, [play]);
 
   return (
     <Player>
