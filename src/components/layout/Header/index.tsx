@@ -131,7 +131,8 @@ const Header: React.FC = () => {
 
   const artist = data?.find((a) => a.name?.toLowerCase().replace(/['\s]/g, '-') === slug);
 
-  const audioLabel = router.pathname !== '/' ? (artist?.name as string) : 'radio';
+  const audioLabel =
+    router.pathname !== '/' && !!artist?.artistRadio?.url ? (artist?.name as string) : 'radio';
   const audioSrc = router.pathname !== '/' ? (artist?.artistRadio?.url as string) : undefined;
 
   return (
