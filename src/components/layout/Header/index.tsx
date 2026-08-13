@@ -9,6 +9,10 @@ import LangToggle from '@app/components/LangToggle';
 import fonts from '@app/fonts/fonts';
 import Typography from '@app/components/Typography/Typography';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { Artist } from '@app/services/graphql/types';
+import { fetcher } from '@app/hooks/fetch/useFetch';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,11 +124,20 @@ const Navigation = styled.div`
 
 const Header: React.FC = () => {
   const { open, setOpen } = useSidebar((state) => state);
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const { data } = useSWR<Artist[] | null>(`/api/artistsDetails`, fetcher);
+
+  const artist = data?.find((a) => a.name?.toLowerCase().replace(/['\s]/g, '-') === slug);
+
+  const audioLabel = router.pathname !== '/' ? (artist?.name as string) : 'radio';
+  const audioSrc = router.pathname !== '/' ? (artist?.artistRadio?.url as string) : undefined;
 
   return (
     <HeaderWrapper aria-label="Header" id="header">
       <TopHeader>
-        <AudioPlayer />
+        <AudioPlayer label={audioLabel} audioSrc={audioSrc} />
         <LangToggle />
 
         {/*  <BurgerMenu onClick={setOpen} id="burger-menu">

@@ -57,7 +57,12 @@ const Playlabel = styled(Typography)`
   `}
 `;
 
-const AudioPlayer: FC = () => {
+type Props = {
+  label?: string;
+  audioSrc?: string;
+};
+
+const AudioPlayer: FC<Props> = ({ label = 'radio', audioSrc }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [play, setPlay] = useState<boolean>(false);
@@ -135,11 +140,11 @@ const AudioPlayer: FC = () => {
     return () => {
       gsap.ticker.remove(tick);
     };
-  }, [play, pathRef]);
+  }, [play, pathRef, state]);
 
   return (
     <Player>
-      <audio ref={audioRef} src={data?.ngRadio?.url || ''} loop preload="none" />
+      <audio ref={audioRef} src={audioSrc || data?.ngRadio?.url || ''} loop preload="none" />
       <button onClick={togglePlayback} style={{ color: 'white' }}>
         {play ? (
           <FaPause style={{ width: '25px', height: '25px' }} />
@@ -150,7 +155,7 @@ const AudioPlayer: FC = () => {
       <svg width="100%" height={64} viewBox="0 0 1000 100" preserveAspectRatio="none">
         <path ref={pathRef} stroke="white" strokeWidth={4} fill="none" strokeLinecap="round" />
       </svg>
-      {!play && <Playlabel type={fonts.subheader.style.fontFamily}>play radio</Playlabel>}
+      {!play && <Playlabel type={fonts.subheader.style.fontFamily}>{`play ${label}`}</Playlabel>}
     </Player>
   );
 };
