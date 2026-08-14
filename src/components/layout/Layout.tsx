@@ -89,7 +89,7 @@ const Layout: FC<Props> = ({ children, className }) => {
       scrollTrigger: {
         trigger: '#main',
         start: 'top 10%',
-        end: 'top -5%',
+        end: 'top -2%',
         scrub: 1,
       },
     });

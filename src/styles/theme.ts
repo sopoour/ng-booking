@@ -6,6 +6,7 @@ const theme = {
     bg: {
       default: '#250564',
       soft: '#6a32d8',
+      softTrans: "rgba(106, 50, 216, 0.7)",
       defaultBlur: 'rgba(37, 5, 100, 0.75)',
     },
     fg: {
