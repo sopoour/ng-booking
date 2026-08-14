@@ -57,64 +57,48 @@ const Layout: FC<Props> = ({ children, className }) => {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (isHome) {
-      gsap.fromTo(
-        '#logo',
-        {
-          scale: 1,
-        },
-        {
-          scale: 1.5,
-          duration: 0.8,
-          ease: 'power2.out',
-          onComplete: () => {
-            gsap.to('#logo', {
-              scale: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: '#main',
-                start: 'top 10%',
-                end: 'top 0%',
-                scrub: 1,
-              },
-            });
+    const ctx = gsap.context(() => {
+      if (isHome) {
+        gsap.fromTo(
+          '#logo',
+          {
+            scale: 1,
           },
-        },
-      );
-    }
+          {
+            scale: 1.5,
+            duration: 0.8,
+            ease: 'power2.out',
+            onComplete: () => {
+              gsap.to('#logo', {
+                scale: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: '#main',
+                  start: 'top 10%',
+                  end: 'top -5%',
+                  scrub: 1,
+                },
+              });
+            },
+          },
+        );
+      }
 
-    gsap.to('#header', {
-      backgroundColor: theme.colors.bg.default,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#main',
-        start: 'top 10%',
-        end: 'top -2%',
-        scrub: 1,
-      },
+      gsap.to('#header', {
+        backgroundColor: theme.colors.bg.default,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#main',
+          start: 'top 10%',
+          end: 'top -5%',
+          scrub: true,
+        },
+      });
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ctx.revert();
   }, [isHome]);
 
-  useEffect(() => {
-    gsap.to('#header', {
-      backgroundColor: theme.colors.bg.default,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#main',
-        start: 'top 10%',
-        end: 'top -5%',
-        scrub: 1,
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
   return (
     <Root>
       <Sidebar>Some content</Sidebar>

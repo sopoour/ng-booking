@@ -26,7 +26,6 @@ const HeaderWrapper = styled.div`
   min-height: ${HEADER_HEIGHT}px;
   background-color: transparent;
   padding: 16px 24px;
-  ${slowTransition};
   /*  backdrop-filter: ${({ theme }) => theme.filters.backdrop}; */
 `;
 
@@ -37,7 +36,6 @@ const TopHeader = styled.div`
   width: 100%;
   gap: 12px;
   opacity: 1;
-  transition: all 300ms ease-in-out;
   transform: none;
 
   ${({ theme }) => theme.media('xs')`
