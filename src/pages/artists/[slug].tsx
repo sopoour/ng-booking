@@ -159,7 +159,7 @@ const Artist: FC = () => {
         <LiveSubWrapper>
           <LinkWrapper>
             {links.map((l) => (
-              <LinkButton href={l.link || ''} target="_blank">
+              <LinkButton href={l.link || ''} target="_blank" key={l.label + artist?.name}>
                 {l.label}
               </LinkButton>
             ))}
