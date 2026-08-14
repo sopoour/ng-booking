@@ -27,6 +27,8 @@ const TitleSkeleton = styled(Skeleton)`
     ${({ theme }) => theme.media('sm')`
     top: -20px;
     left: 22%;
+    width: 300px;
+    height: 40px;
   `}
   }
 `;
