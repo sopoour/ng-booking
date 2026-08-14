@@ -65,7 +65,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
   return (
     <ArtistWrapper>
       <ArtistTitle>{artist?.name}</ArtistTitle>
-      <StyledLink href={artistSlug ? `/artists/${artistSlug}` : ''}>
+      <StyledLink href={artistSlug ? `/artists/${artistSlug}` : ''} target="_blank">
         <ProfileImage
           src={artist?.profilfoto?.url || ''}
           fill

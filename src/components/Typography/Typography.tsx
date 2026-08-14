@@ -29,6 +29,10 @@ const Typography = styled.p<Props>`
   color: ${({ color, theme }) => color || theme.colors.fg.default};
   white-space: ${({ whiteSpace }) => whiteSpace || 'pre-wrap'};
   text-transform: ${({ $isUpperCase }) => ($isUpperCase ? 'uppercase' : 'none')};
+
+  ${({ theme, fontSize, fontSizeSm }) => theme.media('sm')`
+    font-size:  ${fontSizeSm || fontSize || '16px'};
+  `}
 `;
 
 export default Typography;
