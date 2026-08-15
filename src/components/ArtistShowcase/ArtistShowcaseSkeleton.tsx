@@ -18,17 +18,22 @@ const TitleSkeleton = styled(Skeleton)`
   && {
     position: absolute;
     top: -10px;
-    left: 28%;
+    left: 27%;
     z-index: 5;
-    width: 200px;
-    height: 20px;
+    width: 175px;
+    height: 30px;
     text-align: center;
 
     ${({ theme }) => theme.media('sm')`
-    top: -20px;
-    left: 22%;
+    top: -22px !important;
+    left: 24% !important;
     width: 300px;
-    height: 40px;
+    height: 45px;
+  `}
+
+    ${({ theme }) => theme.media('xs')`
+    top: -10px;
+    left: 38%;
   `}
   }
 `;

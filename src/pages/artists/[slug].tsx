@@ -151,7 +151,7 @@ const Artist: FC = () => {
         <MarkdownConfig content={artist?.pressetext as string} />
       </PressWrapper>
       <LiveWrapper>
-        <Typography type={fonts.subheader.style.fontFamily} fontSize={'24px'} fontSizeSm="40px">
+        <Typography type={fonts.subheader.style.fontFamily} fontSize={'20px'} fontSizeSm="40px">
           {lang === 'en' ? 'Avilability: ' : 'Verfügbarkeit: '}
           {artist?.availability}
         </Typography>

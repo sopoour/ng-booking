@@ -1,11 +1,8 @@
 import ArtistShowcase from '@app/components/ArtistShowcase';
 import ArtistShowcaseSkeleton from '@app/components/ArtistShowcase/ArtistShowcaseSkeleton';
-import AudioPlayer from '@app/components/AudioPlayer';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
-import Typography from '@app/components/Typography/Typography';
 import { fetcher } from '@app/hooks/fetch/useFetch';
 import useLang from '@app/hooks/useLang';
-import { Artist } from '@app/services/graphql/types';
 import { ArtistPreview } from '@app/types';
 import { NextPage } from 'next';
 import styled from 'styled-components';
