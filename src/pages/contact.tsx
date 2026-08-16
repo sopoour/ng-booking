@@ -173,7 +173,7 @@ const Contact: FC = () => {
 
   return (
     <>
-      <SeoHead title="Feedback | BENGE" />
+      <SeoHead title="Contact | NG-Booking" />
       <MaxWidthContainer id="feedback">
         <>
           <Typography
