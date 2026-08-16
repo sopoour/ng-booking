@@ -42,7 +42,7 @@ const Artist: FC = () => {
 
   return (
     <>
-      <SeoHead title={artist?.name + '| NG-Booking'} />
+      <SeoHead title={artist?.name + ' | NG-Booking'} />
       <Container>
         <ArtistDetails artist={artist} lang={lang} />
       </Container>
