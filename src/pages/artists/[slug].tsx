@@ -1,6 +1,7 @@
 import ArtistDetails from '@app/components/ArtistDetails';
 import ArtistDetailsSkeleton from '@app/components/ArtistDetails/ArtistDetailsSkeleton';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
+import SeoHead from '@app/components/SeoHead';
 import { fetcher } from '@app/hooks/fetch/useFetch';
 import useLang from '@app/hooks/useLang';
 import { Artist as ArtistType } from '@app/services/graphql/types';
@@ -40,9 +41,12 @@ const Artist: FC = () => {
   }
 
   return (
-    <Container>
-      <ArtistDetails artist={artist} lang={lang} />
-    </Container>
+    <>
+      <SeoHead title={artist?.name + '- NG-Booking'} />
+      <Container>
+        <ArtistDetails artist={artist} lang={lang} />
+      </Container>
+    </>
   );
 };
 

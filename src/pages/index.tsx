@@ -1,6 +1,7 @@
 import ArtistShowcase from '@app/components/ArtistShowcase';
 import ArtistShowcaseSkeleton from '@app/components/ArtistShowcase/ArtistShowcaseSkeleton';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
+import SeoHead from '@app/components/SeoHead';
 import { fetcher } from '@app/hooks/fetch/useFetch';
 import useLang from '@app/hooks/useLang';
 import { ArtistPreview } from '@app/types';
@@ -31,11 +32,14 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Root>
-      {data
-        ?.sort((a, b) => (a.orderNumber as number) - (b.orderNumber as number))
-        .map((artist) => <ArtistShowcase artist={artist} key={artist.name + 'showcase'} />)}
-    </Root>
+    <>
+      <SeoHead />
+      <Root>
+        {data
+          ?.sort((a, b) => (a.orderNumber as number) - (b.orderNumber as number))
+          .map((artist) => <ArtistShowcase artist={artist} key={artist.name + 'showcase'} />)}
+      </Root>
+    </>
   );
 };
 

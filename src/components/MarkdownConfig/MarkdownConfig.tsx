@@ -36,16 +36,17 @@ const MarkdownSettings = styled.div`
     }
   }
 
-  h1,
   h2,
   h3,
   h4 {
-    font-weight: 700;
-    font-family: ${fonts.header.style.fontFamily};
+    font-family: ${fonts.subheader.style.fontFamily};
+    font-weight: 400;
   }
 
   h1 {
     font-size: 36px;
+    font-weight: 400;
+    font-family: ${fonts.header.style.fontFamily};
   }
 
   h2 {

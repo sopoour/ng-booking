@@ -11,7 +11,7 @@ const MaxWidthContainer = styled.div<Props>`
   margin: 40px auto;
   min-height: unset;
   height: unset;
-  max-width: ${(props) => props.$maxwidth}px;
+  max-width: 1000px;
   box-sizing: content-box;
 
   ${(props) => props.theme.media('sm')`
