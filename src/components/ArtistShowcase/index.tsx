@@ -6,6 +6,8 @@ import Typography from '../Typography/Typography';
 import { FC } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useMedia } from '@app/hooks/useMedia';
+import { Breakpoints } from '@app/styles/media';
 
 export const ArtistWrapper = styled.section`
   ${flexColumn};
@@ -61,11 +63,15 @@ type Props = {
 
 const ArtistShowcase: FC<Props> = ({ artist }) => {
   const artistSlug = artist?.name?.toLowerCase().replace(/['\s]/g, '-');
+  const isDesktop = useMedia(Breakpoints.sm);
 
   return (
     <ArtistWrapper>
       <ArtistTitle>{artist?.name}</ArtistTitle>
-      <StyledLink href={artistSlug ? `/artists/${artistSlug}` : ''} target="_blank">
+      <StyledLink
+        href={artistSlug ? `/artists/${artistSlug}` : ''}
+        target={isDesktop ? '_blank' : '_self'}
+      >
         <ProfileImage
           src={artist?.profilfoto?.url || ''}
           fill
