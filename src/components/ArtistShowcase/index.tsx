@@ -91,17 +91,15 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
           },
         });
 
-        if (isDesktop) {
-          tl.to(title, {
-            y: 500,
-            duration: 0.8,
-            ease: 'none',
-          }).to(title, {
-            opacity: 0,
-            duration: 0.5,
-            ease: 'none',
-          });
-        }
+        tl.to(title, {
+          y: 500,
+          duration: 0.8,
+          ease: 'none',
+        }).to(title, {
+          opacity: 0,
+          duration: 0.5,
+          ease: 'none',
+        });
 
         if (nextCard) {
           tl.fromTo(
@@ -123,7 +121,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
     });
 
     return () => ctx.revert();
-  }, [isDesktop]);
+  }, [cards]);
 
   return (
     <ArtistWrapper className="artist-card">
