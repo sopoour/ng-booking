@@ -14,9 +14,11 @@ const Root = styled(MaxWidthContainer)`
   flex-direction: column;
   gap: 150px;
   padding-top: 50px;
+  margin-bottom: 200px;
   ${({ theme }) => theme.media('sm')`
     padding-top: 100px;
     padding-bottom: 48px;
+     margin-bottom: 150px;
   `};
 `;
 

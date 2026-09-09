@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 const ProfilePicSkeleton = styled(Skeleton)`
   && {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     ${({ theme }) => theme.media('sm')`
     width: 500px;
     height: 500px;
@@ -18,7 +18,7 @@ const TitleSkeleton = styled(Skeleton)`
   && {
     position: absolute;
     top: -10px;
-    left: 27%;
+    left: 22%;
     z-index: 5;
     width: 175px;
     height: 30px;

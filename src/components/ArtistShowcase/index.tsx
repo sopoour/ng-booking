@@ -139,6 +139,8 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
           const genre = card.querySelector<HTMLElement>('.artist-genre');
           const nextCard = cards[index + 1];
 
+          gsap.set(genre, { opacity: 0 });
+
           if (!title) return;
 
           const tl = gsap.timeline({
@@ -189,7 +191,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
               nextCard,
               {
                 opacity: 0,
-                y: 100,
+                y: isDesktop ? 100 : 50,
               },
               {
                 opacity: 1,
