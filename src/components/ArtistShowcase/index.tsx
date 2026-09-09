@@ -1,6 +1,6 @@
 import fonts from '@app/fonts/fonts';
 import ContentfulImage from '@app/lib/contentful-image';
-import { flexColumn } from '@app/styles/mixins';
+import { flexColumn, flexRow } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
 import Typography from '../Typography/Typography';
 import { FC, useEffect, useLayoutEffect } from 'react';
@@ -61,6 +61,24 @@ const StyledLink = styled(Link)`
   position: relative !important;
 `;
 
+const GenreWrapper = styled.span`
+  ${flexRow};
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 0px;
+  justify-content: center;
+  margin-top: -28px;
+`;
+
+const Genre = styled(Typography)`
+  font-family: ${fonts.header.style.fontFamily};
+  font-size: 16px;
+  text-align: center;
+  ${({ theme }) => theme.media('sm')`
+    font-size: 28px;
+  `}
+`;
+
 type Props = {
   artist: ArtistPreview;
 };
@@ -111,6 +129,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
 
         cards.forEach((card, index) => {
           const title = card.querySelector<HTMLElement>('.artist-title');
+          const genre = card.querySelector<HTMLElement>('.artist-genre');
           const nextCard = cards[index + 1];
 
           if (!title) return;
@@ -124,15 +143,35 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
             },
           });
 
+          const tlGenre = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 30%',
+              end: 'top 10%',
+              scrub: true,
+              markers: true,
+            },
+          });
+
+          tlGenre.fromTo(
+            genre,
+            {
+              opacity: 0,
+            },
+            { opacity: 1, duration: 0.2, ease: 'none' },
+          );
+
           tl.to(title, {
             y: isDesktop ? 500 : 280,
             duration: 0.8,
             ease: 'none',
-          }).to(title, {
-            opacity: 0,
-            duration: 0.2,
-            ease: 'none',
-          });
+          })
+
+            .to(title, {
+              opacity: 0,
+              duration: 0.2,
+              ease: 'none',
+            });
 
           if (nextCard) {
             tl.fromTo(
@@ -178,6 +217,9 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
           style={{ objectFit: 'cover' }}
         />
       </StyledLink>
+      <GenreWrapper className="artist-genre">
+        {artist?.genre?.map((g) => <Genre key={g + (artist?.name || '')}>{g}</Genre>)}
+      </GenreWrapper>
     </ArtistWrapper>
   );
 };
