@@ -89,10 +89,13 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
 
   useLayoutEffect(() => {
     let ctx: gsap.Context;
+    let cancelled = false;
 
     const setupAnimations = async () => {
       // Wait for fonts
       await document.fonts.ready;
+
+      if (cancelled) return;
 
       // Get all images
       const images = Array.from(document.querySelectorAll<HTMLImageElement>('.artist-card img'));
@@ -116,8 +119,12 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
         }),
       );
 
+      if (cancelled) return;
+
       // Give React/browser one more render frame
       await new Promise(requestAnimationFrame);
+
+      if (cancelled) return;
 
       ctx = gsap.context(() => {
         const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
@@ -143,21 +150,20 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
             },
           });
 
-          const tlGenre = gsap.timeline({
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 30%',
-              end: 'top 10%',
-              scrub: true,
-            },
-          });
-
-          tlGenre.fromTo(
+          gsap.fromTo(
             genre,
+            { opacity: 0 },
             {
-              opacity: 0,
+              opacity: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 30%',
+                end: 'top 10%',
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
             },
-            { opacity: 1, duration: 0.2, ease: 'none' },
           );
 
           tl.to(title, {
@@ -197,6 +203,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
     setupAnimations();
 
     return () => {
+      cancelled = true;
       ctx?.revert();
     };
   }, [isDesktop]);
