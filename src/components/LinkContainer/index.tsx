@@ -90,50 +90,48 @@ const LinkContainer: FC<Props> = ({
             return {
               id: 'tiktok',
               icon: <FaTiktok />,
-              link: 'https://www.tiktok.com/@gemma.msc',
+              link: icon.link,
             };
           case 'spotify':
             return {
               id: 'spotify',
               icon: <FaSpotify />,
-              link:
-                icon.link ||
-                'https://open.spotify.com/artist/6ZEMlHydJRHREpHwmNza4T?si=L5NhpgmwSmO2AmJAjRnxWw',
+              link: icon.link,
             };
           case 'email':
             return {
               id: 'email',
               icon: <FaEnvelope />,
-              link: icon.link || 'mailto:contact@g-emma.com',
+              link: icon.link,
             };
           case 'instagram':
             return {
               id: 'instagram',
               icon: <FaInstagram />,
-              link: icon.link || 'https://www.instagram.com/gemma.msc/',
+              link: icon.link,
             };
           case 'appleMusic':
             return {
               id: 'appleMusic',
               icon: <FaMusic />,
-              link: icon.link || 'https://music.apple.com/dk/artist/gemma/1469747172',
+              link: icon.link,
             };
           case 'youtube':
             return {
               id: 'youtube',
               icon: <FaYoutube />,
-              link: icon.link || 'https://www.youtube.com/@gemma.msc.',
+              link: icon.link,
             };
           case 'bandcamp':
             return {
               id: 'bandcamp',
               icon: <FaBandcamp />,
-              link: icon.link || 'https://gemmamusic.bandcamp.com/',
+              link: icon.link,
             };
           case 'link':
             return { id: icon.id ?? 'external link', icon: <FaExternalLinkAlt />, link: icon.link };
           default:
-            return { id: 'email', icon: <FaEnvelope />, link: 'mailto:contact@g-emma.com' };
+            return { id: 'external link', icon: <FaExternalLinkAlt />, link: icon.link };
         }
       }),
     [iconLinks],

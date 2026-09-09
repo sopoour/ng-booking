@@ -4,11 +4,10 @@ import { Artist } from '@app/services/graphql/types';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import { Flex } from '@mantine/core';
 import Link from 'next/link';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import Typography from '../Typography/Typography';
 import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
-import { IconLink } from '@app/types';
 import { mapSocialLinks } from '@app/utils/formatLinks';
 import LinkContainer from '../LinkContainer';
 
@@ -113,7 +112,6 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
 
   const mappedSoMeLinks = mapSocialLinks(artist?.soMeLinks as string[]);
 
-  console.log(artist?.soMeLinks);
   return (
     <>
       <Flex direction={'column'} gap={'8px'}>
