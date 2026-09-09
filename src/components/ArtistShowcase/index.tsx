@@ -149,7 +149,6 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
               start: 'top 30%',
               end: 'top 10%',
               scrub: true,
-              markers: true,
             },
           });
 
