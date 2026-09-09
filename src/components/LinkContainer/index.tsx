@@ -13,6 +13,7 @@ import {
   FaTiktok,
   FaYoutube,
 } from 'react-icons/fa';
+import { SiTidal, SiLinktree } from 'react-icons/si';
 
 type Size = 'small' | 'medium' | 'big';
 
@@ -126,6 +127,18 @@ const LinkContainer: FC<Props> = ({
             return {
               id: 'bandcamp',
               icon: <FaBandcamp />,
+              link: icon.link,
+            };
+          case 'tidal':
+            return {
+              id: 'tidal',
+              icon: <SiTidal />,
+              link: icon.link,
+            };
+          case 'linktree':
+            return {
+              id: 'linktree',
+              icon: <SiLinktree />,
               link: icon.link,
             };
           case 'link':

@@ -21,6 +21,11 @@ export const mapSocialLinks  = (links: string[]): IconLink [] => {
       case link.includes('bandcamp'):
         return { type: 'bandcamp', link };
 
+      case link.includes('tidal'):
+        return { type: 'tidal', link };
+       
+      case link.includes('linktree'):
+        return { type: 'linktree', link };
       default:
         return { type: 'link', link };
     }
