@@ -447,6 +447,8 @@ export type AssetLinkingCollections = {
   entryCursorCollection?: Maybe<EntryCursorCollection>;
   generellCollection?: Maybe<GenerellCollection>;
   generellCursorCollection?: Maybe<GenerellCursorCollection>;
+  teamMemberCollection?: Maybe<TeamMemberCollection>;
+  teamMemberCursorCollection?: Maybe<TeamMemberCursorCollection>;
 };
 
 
@@ -498,6 +500,25 @@ export type AssetLinkingCollectionsGenerellCollectionArgs = {
 
 
 export type AssetLinkingCollectionsGenerellCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsTeamMemberCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsTeamMemberCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
@@ -871,6 +892,9 @@ export type Query = {
   generell?: Maybe<Generell>;
   generellCollection?: Maybe<GenerellCollection>;
   generellCursorCollection?: Maybe<GenerellCursorCollection>;
+  teamMember?: Maybe<TeamMember>;
+  teamMemberCollection?: Maybe<TeamMemberCollection>;
+  teamMemberCursorCollection?: Maybe<TeamMemberCursorCollection>;
 };
 
 
@@ -1005,6 +1029,37 @@ export type QueryGenerellCursorCollectionArgs = {
   where?: InputMaybe<GenerellFilter>;
 };
 
+
+export type QueryTeamMemberArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryTeamMemberCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<TeamMemberOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<TeamMemberFilter>;
+};
+
+
+export type QueryTeamMemberCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<TeamMemberOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<TeamMemberFilter>;
+};
+
 export type Sys = {
   __typename?: 'Sys';
   environmentId: Scalars['String']['output'];
@@ -1062,6 +1117,121 @@ export type TaxonomyConcept = {
   __typename?: 'TaxonomyConcept';
   id?: Maybe<Scalars['String']['output']>;
 };
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMember = Entry & _Node & {
+  __typename?: 'TeamMember';
+  _id: Scalars['ID']['output'];
+  beschreibung?: Maybe<Scalars['String']['output']>;
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<TeamMemberLinkingCollections>;
+  name?: Maybe<Scalars['String']['output']>;
+  profilbild?: Maybe<Asset>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberBeschreibungArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberProfilbildArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type TeamMemberCollection = {
+  __typename?: 'TeamMemberCollection';
+  items: Array<Maybe<TeamMember>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type TeamMemberCursorCollection = {
+  __typename?: 'TeamMemberCursorCollection';
+  items: Array<Maybe<TeamMember>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type TeamMemberFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TeamMemberFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TeamMemberFilter>>>;
+  beschreibung?: InputMaybe<Scalars['String']['input']>;
+  beschreibung_contains?: InputMaybe<Scalars['String']['input']>;
+  beschreibung_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  beschreibung_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  beschreibung_not?: InputMaybe<Scalars['String']['input']>;
+  beschreibung_not_contains?: InputMaybe<Scalars['String']['input']>;
+  beschreibung_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_contains?: InputMaybe<Scalars['String']['input']>;
+  name_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  name_not?: InputMaybe<Scalars['String']['input']>;
+  name_not_contains?: InputMaybe<Scalars['String']['input']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  profilbild_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type TeamMemberLinkingCollections = {
+  __typename?: 'TeamMemberLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  entryCursorCollection?: Maybe<EntryCursorCollection>;
+};
+
+
+export type TeamMemberLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type TeamMemberLinkingCollectionsEntryCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum TeamMemberOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type TimelineFilterInput = {
   /** Preview content starting from a given release date */

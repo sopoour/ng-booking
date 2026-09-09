@@ -23,12 +23,14 @@ export default async function getArtistsDetails(req: NextApiRequest, res: NextAp
                   width
                   height
                   title
+                  description
                 }
                 presseFoto {
                   url
                   width
                   height
                   title
+                  description
                 }
                 pressetext
                 soMeLinks

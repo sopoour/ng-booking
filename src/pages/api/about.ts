@@ -7,28 +7,27 @@ export default async function getHomepage(req: NextApiRequest, res: NextApiRespo
     const locale = getLocaleFromRequest(req);
     const data = await fetchGraphQL(
       `query homePage($locale: String!) {
-            artistCollection(limit: 100, locale: $locale) {
+            generell(id: "6USnkxDxNcPwJMDWNGDATK", locale: $locale) {
+              about
+            }
+            teamMemberCollection(limit: 10, locale: $locale) {
               items {
                 name
-                orderNumber
-                profilfoto {
+                beschreibung
+                profilbild {
                   url
                   width
                   height
                   title
                   description
                 }
-                artistRadio {
-                 url
-                }
-                genre
               }
             }
         }`,
         { locale }
     );
 
-    res.status(200).json(data.data.artistCollection.items);
+    res.status(200).json(data.data);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
