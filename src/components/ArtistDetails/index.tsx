@@ -43,10 +43,15 @@ export const GenreWrapper = styled.span`
 
 export const PressWrapper = styled.section`
   display: grid;
-  grid-template-columns: 0.8fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 16px;
   position: relative;
+
+  ${({ theme }) => theme.media('sm')`
+    grid-template-columns: 0.8fr 1fr;
+  gap: 40px;
+  `};
 `;
 
 const Image = styled(ContentfulImage)`
@@ -59,7 +64,7 @@ const Image = styled(ContentfulImage)`
 
 const LiveWrapper = styled.section`
   ${flexColumn};
-  gap: 8px;
+  gap: 32px;
   margin-top: 8px;
   ${({ theme }) => theme.media('sm')`
     gap: 16px;
@@ -69,13 +74,27 @@ const LiveWrapper = styled.section`
 
 const LiveSubWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.3fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 16px;
+  gap: 32px;
   position: relative;
+
+  ${({ theme }) => theme.media('sm')`
+    grid-template-columns: 0.3fr 1fr;
+    gap: 32px;
+  `};
 `;
 
 const LinkWrapper = styled.div`
+  ${flexRow};
+  gap: 16px;
+
+  ${({ theme }) => theme.media('sm')`
+    ${flexColumn};
+  `};
+`;
+
+const LinkOverWrapper = styled.div`
   ${flexColumn};
   gap: 16px;
 `;
@@ -132,21 +151,23 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
         <MarkdownConfig content={artist?.pressetext as string} />
       </PressWrapper>
       <LiveWrapper>
-        <Typography type={fonts.subheader.style.fontFamily} fontSize={'20px'} fontSizeSm="40px">
+        <Typography type={fonts.subheader.style.fontFamily} fontSize={'28px'} fontSizeSm="40px">
           {lang === 'en' ? 'Avilability: ' : 'Verfügbarkeit: '}
           {artist?.availability}
         </Typography>
 
         <LiveSubWrapper>
-          <LinkWrapper>
-            {links.map((l) => (
-              <LinkButton href={l.link || ''} target="_blank" key={l.label + artist?.name}>
-                {l.label}
-              </LinkButton>
-            ))}
-
+          <LinkOverWrapper>
+            <LinkWrapper>
+              {links.map((l) => (
+                <LinkButton href={l.link || ''} target="_blank" key={l.label + artist?.name}>
+                  {l.label}
+                </LinkButton>
+              ))}
+            </LinkWrapper>{' '}
             <LinkContainer iconLinks={mappedSoMeLinks} />
-          </LinkWrapper>
+          </LinkOverWrapper>
+
           <Image
             src={artist?.liveFoto?.url || ''}
             fill

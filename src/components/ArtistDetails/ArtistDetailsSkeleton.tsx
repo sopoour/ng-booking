@@ -19,10 +19,10 @@ const TitleSkeleton = styled(Skeleton)`
 const ImageSkeleton = styled(Skeleton)`
   && {
     width: 100%;
-    height: 200px;
+    height: 400px;
 
     ${({ theme }) => theme.media('sm')`
-      width: 100%;
+      width: 380px;
       height: 500px;
   `}
   }
@@ -49,7 +49,7 @@ const PressSkeletonShort = styled(PressSkeleton)`
 
 const ArtistDetailsSkeleton: FC = () => (
   <SkeletonTheme baseColor="#6a32d8" highlightColor="#926ed8">
-    <Container>
+    <Container display={'flex'} style={{ gap: '48px', flexDirection: 'column' }} size={'lg'}>
       <Flex direction={'column'} gap={'8px'} align={'center'}>
         <TitleSkeleton />
         <GenreWrapper>
