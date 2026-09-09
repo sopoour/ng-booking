@@ -3,7 +3,7 @@ import ContentfulImage from '@app/lib/contentful-image';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
 import Typography from '../Typography/Typography';
-import { FC, useEffect, useLayoutEffect } from 'react';
+import { FC, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useMedia } from '@app/hooks/useMedia';

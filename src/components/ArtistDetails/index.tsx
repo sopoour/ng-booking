@@ -8,6 +8,8 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import Typography from '../Typography/Typography';
 import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
+import { mapSocialLinks } from '@app/utils/formatLinks';
+import LinkContainer from '../LinkContainer';
 
 const Title = styled(Typography)`
   font-family: ${fonts.header.style.fontFamily};
@@ -107,6 +109,9 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
     { label: 'Live', link: artist?.liveLink },
     { label: 'Rider', link: artist?.riderLink },
   ];
+
+  const mappedSoMeLinks = mapSocialLinks(artist?.soMeLinks as string[]);
+
   return (
     <>
       <Flex direction={'column'} gap={'8px'}>
@@ -139,6 +144,8 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
                 {l.label}
               </LinkButton>
             ))}
+
+            <LinkContainer iconLinks={mappedSoMeLinks} />
           </LinkWrapper>
           <Image
             src={artist?.liveFoto?.url || ''}

@@ -37,6 +37,7 @@ export type Artist = Entry & _Node & {
   pressetext?: Maybe<Scalars['String']['output']>;
   profilfoto?: Maybe<Asset>;
   riderLink?: Maybe<Scalars['String']['output']>;
+  soMeLinks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   sys: Sys;
 };
 
@@ -134,6 +135,13 @@ export type ArtistRiderLinkArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/artist) */
+export type ArtistSoMeLinksArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type ArtistCollection = {
   __typename?: 'ArtistCollection';
   items: Array<Maybe<Artist>>;
@@ -212,6 +220,10 @@ export type ArtistFilter = {
   riderLink_not?: InputMaybe<Scalars['String']['input']>;
   riderLink_not_contains?: InputMaybe<Scalars['String']['input']>;
   riderLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  soMeLinks_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  soMeLinks_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  soMeLinks_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  soMeLinks_exists?: InputMaybe<Scalars['Boolean']['input']>;
   sys?: InputMaybe<SysFilter>;
 };
 
