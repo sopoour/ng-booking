@@ -144,7 +144,13 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: card,
-              start: index === 0 ? 'top 25%' : 'top 35%',
+              start: isDesktop
+                ? index === 0
+                  ? 'top 25%'
+                  : 'top 35%'
+                : index === 0
+                  ? 'top 22%'
+                  : 'top 33%',
               end: 'bottom 20%',
               scrub: true,
             },
