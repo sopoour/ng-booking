@@ -3,7 +3,7 @@ import ContentfulImage from '@app/lib/contentful-image';
 import { flexColumn } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
 import Typography from '../Typography/Typography';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useMedia } from '@app/hooks/useMedia';
@@ -69,59 +69,99 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
   const artistSlug = artist?.name?.toLowerCase().replace(/['\s]/g, '-');
   const isDesktop = useMedia(Breakpoints.sm);
 
-  const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
+  useLayoutEffect(() => {
+    let ctx: gsap.Context;
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      cards.forEach((card, index) => {
-        const title = card.querySelector<HTMLElement>('.artist-title');
-        const image = card.querySelector<HTMLImageElement>('img');
-        const nextCard = cards[index + 1];
+    const setupAnimations = async () => {
+      // Wait for fonts
+      await document.fonts.ready;
 
-        if (!title || !image) return;
+      // Get all images
+      const images = Array.from(document.querySelectorAll<HTMLImageElement>('.artist-card img'));
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: index === 0 ? 'top 25%' : 'top 35%',
-            end: 'bottom 20%',
-            /* start: index === 0 ? 'top 28%' : 'top 45%',
-            end: 'bottom 20%', */
-            scrub: 1.5,
-          },
-        });
+      // Wait until every image is loaded AND decoded
+      await Promise.all(
+        images.map(async (img) => {
+          if (!img.complete) {
+            await new Promise<void>((resolve) => {
+              img.addEventListener('load', () => resolve(), { once: true });
+              img.addEventListener('error', () => resolve(), { once: true });
+            });
+          }
 
-        tl.to(title, {
-          y: 500,
-          duration: 0.8,
-          ease: 'none',
-        }).to(title, {
+          // Make sure the browser has decoded the image
+          try {
+            await img.decode();
+          } catch {
+            // Image might already be decoded / failed to decode
+          }
+        }),
+      );
+
+      // Give React/browser one more render frame
+      await new Promise(requestAnimationFrame);
+
+      ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
+
+        // Hide all cards except the first
+        gsap.set(cards.slice(1), {
           opacity: 0,
-          duration: 0.5,
-          ease: 'none',
         });
 
-        if (nextCard) {
-          tl.fromTo(
-            nextCard,
-            { opacity: 0, y: 100 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.9,
+        cards.forEach((card, index) => {
+          const title = card.querySelector<HTMLElement>('.artist-title');
+          const nextCard = cards[index + 1];
+
+          if (!title) return;
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: index === 0 ? 'top 25%' : 'top 35%',
+              end: 'bottom 20%',
+              scrub: true,
             },
-          );
-        }
-      });
+          });
 
-      // Hide all except first
-      gsap.set(cards.slice(1), {
-        opacity: 0,
-      });
-    });
+          tl.to(title, {
+            y: isDesktop ? 500 : 280,
+            duration: 0.8,
+            ease: 'none',
+          }).to(title, {
+            opacity: 0,
+            duration: 0.2,
+            ease: 'none',
+          });
 
-    return () => ctx.revert();
-  }, [cards]);
+          if (nextCard) {
+            tl.fromTo(
+              nextCard,
+              {
+                opacity: 0,
+                y: 100,
+              },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'none',
+              },
+            );
+          }
+        });
+
+        // Now that everything has its final dimensions:
+        ScrollTrigger.refresh();
+      });
+    };
+
+    setupAnimations();
+
+    return () => {
+      ctx?.revert();
+    };
+  }, [isDesktop]);
 
   return (
     <ArtistWrapper className="artist-card">
