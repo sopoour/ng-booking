@@ -31,6 +31,7 @@ export default async function getArtistsDetails(req: NextApiRequest, res: NextAp
                   title
                 }
                 pressetext
+                soMeLinks
               }
             }
         }`,
