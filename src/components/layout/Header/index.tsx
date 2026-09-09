@@ -25,7 +25,7 @@ const HeaderWrapper = styled.div`
   z-index: 5;
   min-height: ${HEADER_HEIGHT}px;
   background-color: transparent;
-  padding: 16px 24px;
+  padding: 8px 24px;
   /*  backdrop-filter: ${({ theme }) => theme.filters.backdrop}; */
 `;
 

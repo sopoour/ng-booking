@@ -3,11 +3,15 @@ import ContentfulImage from '@app/lib/contentful-image';
 import { flexColumn } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
 import Typography from '../Typography/Typography';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useMedia } from '@app/hooks/useMedia';
 import { Breakpoints } from '@app/styles/media';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { gsap } from 'gsap';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const ArtistWrapper = styled.section`
   ${flexColumn};
@@ -65,9 +69,65 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
   const artistSlug = artist?.name?.toLowerCase().replace(/['\s]/g, '-');
   const isDesktop = useMedia(Breakpoints.sm);
 
+  const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      cards.forEach((card, index) => {
+        const title = card.querySelector<HTMLElement>('.artist-title');
+        const image = card.querySelector<HTMLImageElement>('img');
+        const nextCard = cards[index + 1];
+
+        if (!title || !image) return;
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: index === 0 ? 'top 25%' : 'top 35%',
+            end: 'bottom 20%',
+            /* start: index === 0 ? 'top 28%' : 'top 45%',
+            end: 'bottom 20%', */
+            scrub: 1.5,
+          },
+        });
+
+        if (isDesktop) {
+          tl.to(title, {
+            y: 500,
+            duration: 0.8,
+            ease: 'none',
+          }).to(title, {
+            opacity: 0,
+            duration: 0.5,
+            ease: 'none',
+          });
+        }
+
+        if (nextCard) {
+          tl.fromTo(
+            nextCard,
+            { opacity: 0, y: 100 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+            },
+          );
+        }
+      });
+
+      // Hide all except first
+      gsap.set(cards.slice(1), {
+        opacity: 0,
+      });
+    });
+
+    return () => ctx.revert();
+  }, [isDesktop]);
+
   return (
-    <ArtistWrapper>
-      <ArtistTitle>{artist?.name}</ArtistTitle>
+    <ArtistWrapper className="artist-card">
+      <ArtistTitle className="artist-title">{artist?.name}</ArtistTitle>
       <StyledLink
         href={artistSlug ? `/artists/${artistSlug}` : ''}
         target={isDesktop ? '_blank' : '_self'}
