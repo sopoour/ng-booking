@@ -76,7 +76,7 @@ const Footer: FC = () => {
     <FooterWrapper>
       <FooterContent>
         <FooterRowTop>
-          <Anchor href={`/ueber-uns${lang === 'en' ? '?lang=en' : ''}`}>
+          <Anchor href={`/about${lang === 'en' ? '?lang=en' : ''}`}>
             {lang === 'en' ? 'About' : 'Über uns'}
           </Anchor>
           <Typography> | </Typography>
