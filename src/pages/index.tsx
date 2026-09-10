@@ -12,13 +12,13 @@ import useSWR from 'swr';
 const Root = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: 100px;
   padding-top: 50px;
-  margin-bottom: 200px;
   ${({ theme }) => theme.media('sm')`
     padding-top: 100px;
     padding-bottom: 48px;
      margin-bottom: 150px;
+     gap: 150px;
   `};
 `;
 

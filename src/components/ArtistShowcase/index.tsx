@@ -91,129 +91,125 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
     let ctx: gsap.Context;
     let cancelled = false;
 
-    const setupAnimations = async () => {
-      // Wait for fonts
-      await document.fonts.ready;
+    if (isDesktop) {
+      const setupAnimations = async () => {
+        // Wait for fonts
+        await document.fonts.ready;
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      // Get all images
-      const images = Array.from(document.querySelectorAll<HTMLImageElement>('.artist-card img'));
+        // Get all images
+        const images = Array.from(document.querySelectorAll<HTMLImageElement>('.artist-card img'));
 
-      // Wait until every image is loaded AND decoded
-      await Promise.all(
-        images.map(async (img) => {
-          if (!img.complete) {
-            await new Promise<void>((resolve) => {
-              img.addEventListener('load', () => resolve(), { once: true });
-              img.addEventListener('error', () => resolve(), { once: true });
-            });
-          }
+        // Wait until every image is loaded AND decoded
+        await Promise.all(
+          images.map(async (img) => {
+            if (!img.complete) {
+              await new Promise<void>((resolve) => {
+                img.addEventListener('load', () => resolve(), { once: true });
+                img.addEventListener('error', () => resolve(), { once: true });
+              });
+            }
 
-          // Make sure the browser has decoded the image
-          try {
-            await img.decode();
-          } catch {
-            // Image might already be decoded / failed to decode
-          }
-        }),
-      );
+            // Make sure the browser has decoded the image
+            try {
+              await img.decode();
+            } catch {
+              // Image might already be decoded / failed to decode
+            }
+          }),
+        );
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      // Give React/browser one more render frame
-      await new Promise(requestAnimationFrame);
+        // Give React/browser one more render frame
+        await new Promise(requestAnimationFrame);
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
+        ctx = gsap.context(() => {
+          const cards = gsap.utils.toArray<HTMLElement>('.artist-card');
 
-        // Hide all cards except the first
-        gsap.set(cards.slice(1), {
-          opacity: 0,
-        });
-
-        cards.forEach((card, index) => {
-          const title = card.querySelector<HTMLElement>('.artist-title');
-          const genre = card.querySelector<HTMLElement>('.artist-genre');
-          const nextCard = cards[index + 1];
-
-          gsap.set(genre, { opacity: 0 });
-
-          if (!title) return;
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: card,
-              start: isDesktop
-                ? index === 0
-                  ? 'top 25%'
-                  : 'top 35%'
-                : index === 0
-                  ? 'top 22%'
-                  : 'top 33%',
-              end: 'bottom 20%',
-              scrub: true,
-            },
+          // Hide all cards except the first
+          gsap.set(cards.slice(1), {
+            opacity: 0,
           });
 
-          gsap.fromTo(
-            genre,
-            { opacity: 0 },
-            {
-              opacity: 1,
-              ease: 'none',
+          cards.forEach((card, index) => {
+            const title = card.querySelector<HTMLElement>('.artist-title');
+            const genre = card.querySelector<HTMLElement>('.artist-genre');
+            const nextCard = cards[index + 1];
+
+            gsap.set(genre, { opacity: 0 });
+
+            if (!title) return;
+
+            const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: card,
-                start: 'top 30%',
-                end: 'top 10%',
+                start: index === 0 ? 'top 25%' : 'top 35%',
+                end: 'bottom 20%',
                 scrub: true,
-                invalidateOnRefresh: true,
               },
-            },
-          );
-
-          tl.to(title, {
-            y: isDesktop ? 500 : 280,
-            duration: 0.8,
-            ease: 'none',
-          })
-
-            .to(title, {
-              opacity: 0,
-              duration: 0.2,
-              ease: 'none',
             });
 
-          if (nextCard) {
-            tl.fromTo(
-              nextCard,
-              {
-                opacity: 0,
-                y: isDesktop ? 100 : 50,
-              },
+            gsap.fromTo(
+              genre,
+              { opacity: 0 },
               {
                 opacity: 1,
-                y: 0,
-                duration: 0.9,
                 ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top 30%',
+                  end: 'top 10%',
+                  scrub: true,
+                  invalidateOnRefresh: true,
+                },
               },
             );
-          }
+
+            tl.to(title, {
+              y: 500,
+              duration: 0.8,
+              ease: 'none',
+            })
+
+              .to(title, {
+                opacity: 0,
+                duration: 0.2,
+                ease: 'none',
+              });
+
+            if (nextCard) {
+              tl.fromTo(
+                nextCard,
+                {
+                  opacity: 0,
+                  y: isDesktop ? 100 : 50,
+                },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.9,
+                  ease: 'none',
+                },
+              );
+            }
+          });
+
+          // Now that everything has its final dimensions:
+          ScrollTrigger.refresh();
         });
+      };
 
-        // Now that everything has its final dimensions:
-        ScrollTrigger.refresh();
-      });
-    };
+      setupAnimations();
 
-    setupAnimations();
-
-    return () => {
-      cancelled = true;
-      ctx?.revert();
-    };
+      return () => {
+        cancelled = true;
+        ctx?.revert();
+      };
+    }
   }, [isDesktop]);
 
   return (
