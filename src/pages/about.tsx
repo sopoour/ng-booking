@@ -14,7 +14,15 @@ import useSWR from 'swr';
 
 const TeamContainer = styled.div`
   ${flexColumn};
-  gap: 32px;
+  gap: 40px;
+
+  justify-content: center;
+
+  ${({ theme }) => theme.media('sm')`
+     ${flexRow};
+     gap: 100px;
+     align-items: flex-start;
+  `}
 `;
 const TeamMemberContainer = styled.div`
   display: grid;
@@ -28,9 +36,10 @@ const TeamMemberContainer = styled.div`
   `}
 `;
 const TeamImageWrapper = styled.span`
-  ${flexColumn};
   position: relative;
-  gap: 8px;
+  width: 350px;
+  ${flexColumn};
+  gap: 16px;
 `;
 
 const Image = styled(ContentfulImage)`
@@ -44,8 +53,49 @@ const Image = styled(ContentfulImage)`
 const TeamMarkDown = styled(MarkdownConfig)`
   h1 {
     text-align: center;
-    font-size: 60px;
+    font-size: 52px;
+
+    ${({ theme }) => theme.media('sm')`
+     font-size: 60px;
+  `}
   }
+`;
+
+const TeamName = styled(Typography)`
+  position: absolute;
+  top: -25px;
+  z-index: 5;
+  font-family: ${fonts.header.style.fontFamily};
+  font-size: 32px;
+  margin-block: 0 !important;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 0.85;
+  overflow-wrap: break-word;
+  text-shadow:
+    0 3px 4px rgba(80, 60, 130, 0.5),
+    0 7px 12px rgba(0, 0, 0, 0.25);
+
+  ${({ theme }) => theme.media('sm')`
+    font-size: 40px;
+  `}
+`;
+
+const TeamSubTitle = styled(Typography)`
+  font-family: ${fonts.subheader.style.fontFamily};
+  text-align: center;
+  font-size: 52px;
+  margin: 60px 0 60px 0%;
+
+  ${({ theme }) => theme.media('sm')`
+    font-size: 60px;
+    margin: 60px 0 100px 0;
+  `}
+`;
+
+const Content = styled.div`
+  ${flexColumn};
 `;
 
 const About: FC = () => {
@@ -57,20 +107,11 @@ const About: FC = () => {
       <SeoHead title="About | NG-Booking" />
       <MaxWidthContainer>
         <TeamMarkDown content={data?.generell.about as string} />
-
-        <Typography
-          as="h2"
-          type={fonts.header.style.fontFamily}
-          fontSize="32px"
-          fontSizeSm="44px"
-          $textalign="center"
-          style={{ margin: '60px 0 32px 0' }}
-        >
-          Team
-        </Typography>
+        <TeamSubTitle as="h2">Team</TeamSubTitle>
         <TeamContainer>
           {data?.teamMemberCollection.items.map((team) => (
-            <TeamMemberContainer>
+            <TeamImageWrapper>
+              <TeamName>{team.name}</TeamName>
               <Image
                 src={team.profilbild?.url || ''}
                 fill
@@ -78,8 +119,17 @@ const About: FC = () => {
                 sizes="(max-width: 768px) 100vw"
                 style={{ objectFit: 'cover' }}
               />
-              <MarkdownConfig content={team.beschreibung as string} />
-            </TeamMemberContainer>
+              <Content>
+                <Typography
+                  fontSize="20px"
+                  fontSizeSm="24px"
+                  type={fonts.subheader.style.fontFamily}
+                >
+                  {team.rolle}
+                </Typography>
+                <MarkdownConfig content={team.beschreibung as string} />
+              </Content>
+            </TeamImageWrapper>
           ))}
         </TeamContainer>
       </MaxWidthContainer>

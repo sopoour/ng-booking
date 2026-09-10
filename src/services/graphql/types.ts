@@ -1127,6 +1127,7 @@ export type TeamMember = Entry & _Node & {
   linkedFrom?: Maybe<TeamMemberLinkingCollections>;
   name?: Maybe<Scalars['String']['output']>;
   profilbild?: Maybe<Asset>;
+  rolle?: Maybe<Scalars['String']['output']>;
   sys: Sys;
 };
 
@@ -1155,6 +1156,13 @@ export type TeamMemberNameArgs = {
 export type TeamMemberProfilbildArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberRolleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1192,6 +1200,13 @@ export type TeamMemberFilter = {
   name_not_contains?: InputMaybe<Scalars['String']['input']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   profilbild_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  rolle?: InputMaybe<Scalars['String']['input']>;
+  rolle_contains?: InputMaybe<Scalars['String']['input']>;
+  rolle_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  rolle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  rolle_not?: InputMaybe<Scalars['String']['input']>;
+  rolle_not_contains?: InputMaybe<Scalars['String']['input']>;
+  rolle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
 };
 
@@ -1223,6 +1238,8 @@ export type TeamMemberLinkingCollectionsEntryCursorCollectionArgs = {
 export enum TeamMemberOrder {
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  RolleAsc = 'rolle_ASC',
+  RolleDesc = 'rolle_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',

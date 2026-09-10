@@ -14,6 +14,7 @@ export default async function getHomepage(req: NextApiRequest, res: NextApiRespo
               items {
                 name
                 beschreibung
+                rolle
                 profilbild {
                   url
                   width
