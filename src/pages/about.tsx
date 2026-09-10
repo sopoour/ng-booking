@@ -110,7 +110,7 @@ const About: FC = () => {
         <TeamSubTitle as="h2">Team</TeamSubTitle>
         <TeamContainer>
           {data?.teamMemberCollection.items.map((team) => (
-            <TeamImageWrapper>
+            <TeamImageWrapper key={team.name}>
               <TeamName>{team.name}</TeamName>
               <Image
                 src={team.profilbild?.url || ''}
