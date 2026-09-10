@@ -12,6 +12,10 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 
+const MaxWidth = styled(MaxWidthContainer)`
+  margin-top: 0;
+`;
+
 const TeamContainer = styled.div`
   ${flexColumn};
   gap: 40px;
@@ -37,9 +41,13 @@ const TeamMemberContainer = styled.div`
 `;
 const TeamImageWrapper = styled.span`
   position: relative;
-  width: 350px;
+  width: 100%;
   ${flexColumn};
   gap: 16px;
+
+  ${({ theme }) => theme.media('sm')`
+    width: 350px;
+  `}
 `;
 
 const Image = styled(ContentfulImage)`
@@ -54,6 +62,7 @@ const TeamMarkDown = styled(MarkdownConfig)`
   h1 {
     text-align: center;
     font-size: 52px;
+    margin: 0 !important;
 
     ${({ theme }) => theme.media('sm')`
      font-size: 60px;
@@ -63,7 +72,7 @@ const TeamMarkDown = styled(MarkdownConfig)`
 
 const TeamName = styled(Typography)`
   position: absolute;
-  top: -25px;
+  top: -18px;
   z-index: 5;
   font-family: ${fonts.header.style.fontFamily};
   font-size: 32px;
@@ -79,6 +88,7 @@ const TeamName = styled(Typography)`
 
   ${({ theme }) => theme.media('sm')`
     font-size: 40px;
+    top: -25px;
   `}
 `;
 
@@ -105,7 +115,7 @@ const About: FC = () => {
   return (
     <>
       <SeoHead title="About | NG-Booking" />
-      <MaxWidthContainer>
+      <MaxWidth>
         <TeamMarkDown content={data?.generell.about as string} />
         <TeamSubTitle as="h2">Team</TeamSubTitle>
         <TeamContainer>
@@ -132,7 +142,7 @@ const About: FC = () => {
             </TeamImageWrapper>
           ))}
         </TeamContainer>
-      </MaxWidthContainer>
+      </MaxWidth>
     </>
   );
 };
