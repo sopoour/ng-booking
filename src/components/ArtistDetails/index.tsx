@@ -37,7 +37,9 @@ const Genre = styled(Typography)`
 
 export const GenreWrapper = styled.span`
   ${flexRow};
-  gap: 16px;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 0px;
   justify-content: center;
 `;
 
