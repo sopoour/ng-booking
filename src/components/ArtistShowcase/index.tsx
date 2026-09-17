@@ -1,6 +1,6 @@
 import fonts from '@app/fonts/fonts';
 import ContentfulImage from '@app/lib/contentful-image';
-import { flexColumn, flexRow } from '@app/styles/mixins';
+import { fastTransition, flexColumn, flexRow, slowTransition } from '@app/styles/mixins';
 import { ArtistPreview } from '@app/types';
 import Typography from '../Typography/Typography';
 import { FC, useLayoutEffect } from 'react';
@@ -59,6 +59,24 @@ const StyledLink = styled(Link)`
   height: unset !important;
   width: 100% !important;
   position: relative !important;
+  ${slowTransition};
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(37, 5, 100, 0);
+    pointer-events: none;
+    ${slowTransition};
+  }
+
+  &:hover {
+    transform: scale(1.04);
+
+    &:after {
+      background: rgba(70, 20, 150, 0.1);
+    }
+  }
 `;
 
 const GenreWrapper = styled.span`
