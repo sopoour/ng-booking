@@ -5,7 +5,7 @@ import { flexColumn, flexRow } from '@app/styles/mixins';
 import { Flex } from '@mantine/core';
 import Link from 'next/link';
 import { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Typography from '../Typography/Typography';
 import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
 import { mapSocialLinks } from '@app/utils/formatLinks';
@@ -61,6 +61,30 @@ const Image = styled(ContentfulImage)`
     height: unset !important;
     position: relative !important;
     width: 100% !important;
+  }
+`;
+
+const ImgWrapper = styled.span<{ imgCredits?: string; sides?: 'left' | 'right' }>`
+  height: unset !important;
+  position: relative !important;
+  width: 100% !important;
+
+  &::before {
+    content: ${({ imgCredits }) => `"${imgCredits}"` || ''};
+    position: absolute;
+    z-index: 2;
+    bottom: 1%;
+    font-size: 8px;
+    color: white;
+
+    ${({ sides }) =>
+      sides === 'right'
+        ? css`
+            right: 1%;
+          `
+        : css`
+            left: 1%;
+          `}
   }
 `;
 
@@ -147,13 +171,15 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
       </Flex>
 
       <PressWrapper>
-        <Image
-          src={artist?.presseFoto?.url || ''}
-          fill
-          alt={`${artist?.name}'s press picture`}
-          sizes="(max-width: 768px) 100vw"
-          style={{ objectFit: 'cover' }}
-        />
+        <ImgWrapper imgCredits={artist?.presseFoto?.description as string | undefined}>
+          <Image
+            src={artist?.presseFoto?.url || ''}
+            fill
+            alt={`${artist?.name}'s press picture`}
+            sizes="(max-width: 768px) 100vw"
+            style={{ objectFit: 'cover' }}
+          />
+        </ImgWrapper>
         <MarkdownConfig content={artist?.pressetext as string} />
       </PressWrapper>
       <LiveWrapper>
@@ -173,14 +199,18 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
             </LinkWrapper>{' '}
             <StyledLinkContainer iconLinks={mappedSoMeLinks} />
           </LinkOverWrapper>
-
-          <Image
-            src={artist?.liveFoto?.url || ''}
-            fill
-            alt={`${artist?.name}'s live picture`}
-            sizes="(max-width: 768px) 100vw"
-            style={{ objectFit: 'cover' }}
-          />
+          <ImgWrapper
+            imgCredits={artist?.liveFoto?.description as string | undefined}
+            sides="right"
+          >
+            <Image
+              src={artist?.liveFoto?.url || ''}
+              fill
+              alt={`${artist?.name}'s live picture`}
+              sizes="(max-width: 768px) 100vw"
+              style={{ objectFit: 'cover' }}
+            />
+          </ImgWrapper>
         </LiveSubWrapper>
       </LiveWrapper>
     </>

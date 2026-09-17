@@ -55,12 +55,20 @@ const ProfileImage = styled(ContentfulImage)`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ imgCredits?: string }>`
   height: unset !important;
   width: 100% !important;
   position: relative !important;
   ${slowTransition};
-
+  &::before {
+    content: ${({ imgCredits }) => `"${imgCredits}"` || ''};
+    position: absolute;
+    z-index: 2;
+    bottom: 1%;
+    left: 1%;
+    font-size: 8px;
+    color: white;
+  }
   &::after {
     content: '';
     position: absolute;
@@ -236,6 +244,7 @@ const ArtistShowcase: FC<Props> = ({ artist }) => {
       <StyledLink
         href={artistSlug ? `/artists/${artistSlug}` : ''}
         target={isDesktop ? '_blank' : '_self'}
+        imgCredits={artist.profilfoto?.description as string | undefined}
       >
         <ProfileImage
           src={artist?.profilfoto?.url || ''}
