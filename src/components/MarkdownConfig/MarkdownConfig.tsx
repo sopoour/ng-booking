@@ -9,7 +9,7 @@ import fonts from '@app/fonts/fonts';
 const MarkdownSettings = styled.div`
   p {
     text-align: justify;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     word-wrap: break-word;
     width: 100%;

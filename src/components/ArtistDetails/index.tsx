@@ -117,6 +117,10 @@ const LinkButton = styled(Link)`
   `}
 `;
 
+const StyledLinkContainer = styled(LinkContainer)`
+  margin-top: 20px;
+`;
+
 type Props = {
   artist?: Artist;
   lang: 'en' | 'de';
@@ -165,7 +169,7 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
                 </LinkButton>
               ))}
             </LinkWrapper>{' '}
-            <LinkContainer iconLinks={mappedSoMeLinks} />
+            <StyledLinkContainer iconLinks={mappedSoMeLinks} />
           </LinkOverWrapper>
 
           <Image
