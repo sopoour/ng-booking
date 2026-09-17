@@ -1,3 +1,4 @@
+import LinkContainer from '@app/components/LinkContainer';
 import MarkdownConfig from '@app/components/MarkdownConfig/MarkdownConfig';
 import MaxWidthContainer from '@app/components/MaxWidthContainer';
 import SeoHead from '@app/components/SeoHead';
@@ -8,6 +9,7 @@ import useLang from '@app/hooks/useLang';
 import ContentfulImage from '@app/lib/contentful-image';
 import { flexColumn, flexRow } from '@app/styles/mixins';
 import { AboutType } from '@app/types';
+import { mapSocialLinks } from '@app/utils/formatLinks';
 import { FC } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
@@ -24,21 +26,11 @@ const TeamContainer = styled.div`
 
   ${({ theme }) => theme.media('sm')`
      ${flexRow};
-     gap: 100px;
+     gap: 120px;
      align-items: flex-start;
   `}
 `;
-const TeamMemberContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  align-items: center;
 
-  ${({ theme }) => theme.media('sm')`
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  `}
-`;
 const TeamImageWrapper = styled.span`
   position: relative;
   width: 100%;
@@ -46,7 +38,7 @@ const TeamImageWrapper = styled.span`
   gap: 16px;
 
   ${({ theme }) => theme.media('sm')`
-    width: 350px;
+    width: 400px;
   `}
 `;
 
@@ -59,6 +51,16 @@ const Image = styled(ContentfulImage)`
 `;
 
 const TeamMarkDown = styled(MarkdownConfig)`
+  margin: 28px 0px 90px 0px;
+  h2 {
+    text-align: center;
+    font-size: 20px;
+
+    ${({ theme }) => theme.media('sm')`
+      font-size: 28px;
+      margin: 0 !important;
+  `}
+  }
   h1 {
     text-align: center;
     font-size: 52px;
@@ -92,20 +94,13 @@ const TeamName = styled(Typography)`
   `}
 `;
 
-const TeamSubTitle = styled(Typography)`
-  font-family: ${fonts.subheader.style.fontFamily};
-  text-align: center;
-  font-size: 52px;
-  margin: 60px 0 60px 0%;
-
-  ${({ theme }) => theme.media('sm')`
-    font-size: 60px;
-    margin: 60px 0 100px 0;
-  `}
-`;
-
 const Content = styled.div`
   ${flexColumn};
+`;
+
+const TeamMemberHeader = styled.span`
+  ${flexRow}
+  justify-content: space-between;
 `;
 
 const About: FC = () => {
@@ -117,30 +112,36 @@ const About: FC = () => {
       <SeoHead title="About | NG-Booking" />
       <MaxWidth>
         <TeamMarkDown content={data?.generell.about as string} />
-        <TeamSubTitle as="h2">Team</TeamSubTitle>
         <TeamContainer>
-          {data?.teamMemberCollection.items.map((team) => (
-            <TeamImageWrapper key={team.name}>
-              <TeamName>{team.name}</TeamName>
-              <Image
-                src={team.profilbild?.url || ''}
-                fill
-                alt={`${team?.name}'s team picture`}
-                sizes="(max-width: 768px) 100vw"
-                style={{ objectFit: 'cover' }}
-              />
-              <Content>
-                <Typography
-                  fontSize="20px"
-                  fontSizeSm="24px"
-                  type={fonts.subheader.style.fontFamily}
-                >
-                  {team.rolle}
-                </Typography>
-                <MarkdownConfig content={team.beschreibung as string} />
-              </Content>
-            </TeamImageWrapper>
-          ))}
+          {data?.teamMemberCollection.items.map((team) => {
+            const mappedSoMeLinks = mapSocialLinks(team?.links as string[]);
+            return (
+              <TeamImageWrapper key={team.name}>
+                <TeamName>{team.name}</TeamName>
+                <Image
+                  src={team.profilbild?.url || ''}
+                  fill
+                  alt={`${team?.name}'s team picture`}
+                  sizes="(max-width: 768px) 100vw"
+                  style={{ objectFit: 'cover' }}
+                />
+                <Content>
+                  <TeamMemberHeader>
+                    <Typography
+                      fontSize="20px"
+                      fontSizeSm="24px"
+                      type={fonts.subheader.style.fontFamily}
+                    >
+                      {team.rolle}
+                    </Typography>
+                    <LinkContainer iconLinks={mappedSoMeLinks} size="small" />
+                  </TeamMemberHeader>
+
+                  <MarkdownConfig content={team.beschreibung as string} />
+                </Content>
+              </TeamImageWrapper>
+            );
+          })}
         </TeamContainer>
       </MaxWidth>
     </>

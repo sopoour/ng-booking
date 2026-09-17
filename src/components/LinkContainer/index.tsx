@@ -12,6 +12,7 @@ import {
   FaSpotify,
   FaTiktok,
   FaYoutube,
+  FaLinkedin,
 } from 'react-icons/fa';
 import { SiTidal, SiLinktree } from 'react-icons/si';
 
@@ -37,7 +38,6 @@ const Container = styled.span<{ hoverColour?: string; size: Size }>`
   gap: 16px;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   svg {
     width: ${({ size }) => getSize(size)};
     height: ${({ size }) => getSize(size)};
@@ -139,6 +139,12 @@ const LinkContainer: FC<Props> = ({
             return {
               id: 'linktree',
               icon: <SiLinktree />,
+              link: icon.link,
+            };
+          case 'linkedin':
+            return {
+              id: 'linkedin',
+              icon: <FaLinkedin />,
               link: icon.link,
             };
           case 'link':

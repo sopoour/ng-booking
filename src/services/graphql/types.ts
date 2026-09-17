@@ -1125,6 +1125,7 @@ export type TeamMember = Entry & _Node & {
   beschreibung?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<TeamMemberLinkingCollections>;
+  links?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   name?: Maybe<Scalars['String']['output']>;
   profilbild?: Maybe<Asset>;
   rolle?: Maybe<Scalars['String']['output']>;
@@ -1142,6 +1143,13 @@ export type TeamMemberBeschreibungArgs = {
 /** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
 export type TeamMemberLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/teamMember) */
+export type TeamMemberLinksArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -1192,6 +1200,10 @@ export type TeamMemberFilter = {
   beschreibung_not_contains?: InputMaybe<Scalars['String']['input']>;
   beschreibung_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  links_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  links_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  links_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  links_exists?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_contains?: InputMaybe<Scalars['String']['input']>;
   name_exists?: InputMaybe<Scalars['Boolean']['input']>;

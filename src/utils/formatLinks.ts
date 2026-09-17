@@ -26,6 +26,8 @@ export const mapSocialLinks  = (links: string[]): IconLink [] => {
        
       case link.includes('linktree'):
         return { type: 'linktree', link };
+      case link.includes('linkedin'):
+        return { type: 'linkedin', link };
       default:
         return { type: 'link', link };
     }
