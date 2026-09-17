@@ -16,7 +16,7 @@ const FormContainer = styled.form`
   gap: 16px;
   padding: 32px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.colors.bg.soft};
+  background: ${({ theme }) => theme.colors.bg.softTrans};
   width: 100%;
   margin: 0 auto;
 
