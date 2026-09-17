@@ -18,6 +18,13 @@ const nextConfig = {
     });
     return config;
   },
+  async redirects () { return [
+    {
+      source: '/artists',
+      destination: '/',
+      permanent: true,
+    },
+  ]}
 };
 
 module.exports = nextConfig;
