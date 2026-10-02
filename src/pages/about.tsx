@@ -31,6 +31,13 @@ const TeamContainer = styled.div`
   `}
 `;
 
+const TeamMemberContainer = styled.div`
+ width: 100%;
+   ${flexColumn};
+  gap: 16px;
+    align-items: center;
+`
+
 const TeamImageWrapper = styled.span`
   position: relative;
   width: 100%;
@@ -89,13 +96,17 @@ const TeamName = styled(Typography)`
     0 7px 12px rgba(0, 0, 0, 0.25);
 
   ${({ theme }) => theme.media('sm')`
-    font-size: 40px;
+    font-size: 48px;
     top: -25px;
   `}
 `;
 
 const Content = styled.div`
   ${flexColumn};
+  max-width: 100%;
+  ${({ theme }) => theme.media('sm')`
+    max-width: 600px;
+  `}
 `;
 
 const TeamMemberHeader = styled.span`
@@ -116,7 +127,8 @@ const About: FC = () => {
           {data?.teamMemberCollection.items.map((team) => {
             const mappedSoMeLinks = mapSocialLinks(team?.links as string[]);
             return (
-              <TeamImageWrapper key={team.name}>
+              <TeamMemberContainer>
+                <TeamImageWrapper key={team.name}>
                 <TeamName>{team.name}</TeamName>
                 <Image
                   src={team.profilbild?.url || ''}
@@ -125,7 +137,9 @@ const About: FC = () => {
                   sizes="(max-width: 768px) 100vw"
                   style={{ objectFit: 'cover' }}
                 />
-                <Content>
+                
+              </TeamImageWrapper>
+              <Content>
                   <TeamMemberHeader>
                     <Typography
                       fontSize="20px"
@@ -134,12 +148,13 @@ const About: FC = () => {
                     >
                       {team.rolle}
                     </Typography>
-                    <LinkContainer iconLinks={mappedSoMeLinks} size="small" />
+                    <LinkContainer iconLinks={mappedSoMeLinks} />
                   </TeamMemberHeader>
 
                   <MarkdownConfig content={team.beschreibung as string} />
                 </Content>
-              </TeamImageWrapper>
+              </TeamMemberContainer>
+              
             );
           })}
         </TeamContainer>
