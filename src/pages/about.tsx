@@ -127,8 +127,8 @@ const About: FC = () => {
           {data?.teamMemberCollection.items.map((team) => {
             const mappedSoMeLinks = mapSocialLinks(team?.links as string[]);
             return (
-              <TeamMemberContainer>
-                <TeamImageWrapper key={team.name}>
+              <TeamMemberContainer key={team.name}>
+                <TeamImageWrapper >
                 <TeamName>{team.name}</TeamName>
                 <Image
                   src={team.profilbild?.url || ''}
