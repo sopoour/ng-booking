@@ -1,26 +1,21 @@
-# Own Next.js template/boiler plate for quicker setup
+<div align="center">
+  <img alt="Logo" src="https://raw.githubusercontent.com/sopoour/ng-booking/main/src/assets/logo.png" width="200" />
+</div>
+<h1 align="center">
+ NG-Booking website - ng-booking.de
+</h1>
+<p align="center">
+  A website for a booking agency for small indie artists,  <a href="https://ng-booking.de" target="_blank">ng-booking.de</a> built with Next.js and hosted with Vercel
+</p>
 
-## Contains
+![demo](https://raw.githubusercontent.com/sopoour/ng-booking/main/src/assets/demo.png)
 
-### Tech stack
+## Tech stack overview
 
-1. next.js and react written in Typescript
+1. Typescript, React and Next.js using Next13 pages route 
 2. styled-components for styling with global styles and theme
-4. custom hooks for data fetching, media queries and more to come
-5. basic components (Typography, Date, MaxWidthContainer)
-6. layout set-up
-7. more utils, hooks and components will be added
-
-
-### Main packages
-
-1. styled-components
-2. eslint & prettier
-3. gsap for animations
-4. various types
-5. react icons
-6. react loading skeleton
-7. suggestions for Markdown, context and data fetching
+3. GSAP and keyframes for animations
+4. Using Contentful as headless CMS.
 
 
 ## Getting Started
@@ -31,10 +26,7 @@ Run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
