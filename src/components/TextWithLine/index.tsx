@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import LineDouble from './lines/line_double.svg';
 import LineThin from './lines/line_thin.svg';
-import LineThick from './lines/Line_thick.svg';
+import LineThick from './lines/line_thick.svg';
 import Typography from '../Typography/Typography';
 
 const UnderlineContainer = styled(Typography)<{ $width?: string }>`
