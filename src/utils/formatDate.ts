@@ -37,6 +37,19 @@ export const ISOToDate = (isoString: string) => {
   }).format(new Date(isoString));
 }
 
+export const ISOToMonthYear = (isoString: string) => {
+  return new Intl.DateTimeFormat('de-DE', {
+    month: 'short',
+    year: 'numeric'
+  }).format(new Date(isoString));
+}
+
+export const ISOToDay = (isoString: string) => {
+  return new Intl.DateTimeFormat('de-DE', {
+    day: '2-digit',
+  }).format(new Date(isoString));
+}
+
 export const ISOToTime = (isoString: string) => {
   return new Intl.DateTimeFormat('de-DE', {
     timeStyle: 'short',

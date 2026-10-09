@@ -15,9 +15,9 @@ const theme = {
       inactive: 'rgba(255, 255, 255, 0.50)',
     },
     accent: {
-      pink: '#F535AA',
+      flieder: '#BBA7E6',
       orange: '#FF4F09',
-      green: '#30FF7F',
+      green: '#B8FF57',
     },
   },
   filters: {
