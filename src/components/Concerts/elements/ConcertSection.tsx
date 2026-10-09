@@ -89,7 +89,9 @@ const ConcertSection: FC<Props> = ({
       </TitleContainer>
 
       <ConcertContainer>
-        {visibleShows?.map((show) => <ConcertRow concert={show} />)}
+        {visibleShows?.map((show) => (
+          <ConcertRow key={(show?.venue || '') + (show?.artistName || '')} concert={show} />
+        ))}
         {!showAll && concerts && concerts?.length > shownEventsNumber && (
           <ButtonContainer>
             <Button
