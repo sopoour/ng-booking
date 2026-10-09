@@ -53,7 +53,7 @@ a {
   font-size: inherit;
   outline: none;
   :focus {
-    outline: 3px solid ${theme.colors.accent.pink}
+    outline: 3px solid ${theme.colors.accent.flieder}
   }
 }
 button {
@@ -70,7 +70,7 @@ p {
   font-size: 16px;
   line-height: 1.25;
   :focus {
-    outline: 3px solid ${theme.colors.accent.pink}
+    outline: 3px solid ${theme.colors.accent.flieder}
   }
 }
 

@@ -10,6 +10,7 @@ import Typography from '../Typography/Typography';
 import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
 import { mapSocialLinks } from '@app/utils/formatLinks';
 import LinkContainer from '../LinkContainer';
+import LinkButton from '../LinkButton';
 
 const Title = styled(Typography)`
   font-family: ${fonts.header.style.fontFamily};
@@ -123,24 +124,6 @@ const LinkWrapper = styled.div`
 const LinkOverWrapper = styled.div`
   ${flexColumn};
   gap: 16px;
-`;
-
-const LinkButton = styled(Link)`
-  background-color: ${({ theme }) => theme.colors.bg.soft};
-  font-family: ${fonts.subheader.style.fontFamily};
-  padding: 4px 8px;
-  font-size: 14px;
-  width: 100%;
-  text-align: center;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.bg.softTrans};
-  }
-
-  ${({ theme }) => theme.media('sm')`
-    font-size: 16px;
-    padding: 8px 16px;
-  `}
 `;
 
 const StyledLinkContainer = styled(LinkContainer)`

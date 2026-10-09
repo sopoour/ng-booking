@@ -1,4 +1,4 @@
-import { Artist, TeamMember } from "@app/services/graphql/types";
+import { Artist, TeamMember, Konzert, Generell } from "@app/services/graphql/types";
 
 export type ArtistPreview = Pick<Artist, 'name' | 'profilfoto' | 'artistRadio' |'genre' | 'orderNumber'>
 
@@ -9,6 +9,16 @@ export type AboutType = {
   teamMemberCollection: {
     items: TeamMember[]
   }
+}
+
+export type HomePage = {
+  artistCollection: {
+    items: ArtistPreview []
+  }
+  konzertCollection: {
+    items: Konzert []
+  }
+  generell: Pick<Generell, 'konzertTitel' | 'konzertUntertitel' | 'vergangeneKonzertTitel'>
 }
 
 export type IconLink = {

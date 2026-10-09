@@ -447,6 +447,8 @@ export type AssetLinkingCollections = {
   entryCursorCollection?: Maybe<EntryCursorCollection>;
   generellCollection?: Maybe<GenerellCollection>;
   generellCursorCollection?: Maybe<GenerellCursorCollection>;
+  konzertCollection?: Maybe<KonzertCollection>;
+  konzertCursorCollection?: Maybe<KonzertCursorCollection>;
   teamMemberCollection?: Maybe<TeamMemberCollection>;
   teamMemberCursorCollection?: Maybe<TeamMemberCursorCollection>;
 };
@@ -500,6 +502,25 @@ export type AssetLinkingCollectionsGenerellCollectionArgs = {
 
 
 export type AssetLinkingCollectionsGenerellCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsKonzertCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsKonzertCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
@@ -644,9 +665,12 @@ export type Generell = Entry & _Node & {
   contentfulMetadata: ContentfulMetadata;
   datenschutz?: Maybe<Scalars['String']['output']>;
   impressum?: Maybe<Scalars['String']['output']>;
+  konzertTitel?: Maybe<Scalars['String']['output']>;
+  konzertUntertitel?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<GenerellLinkingCollections>;
   ngRadio?: Maybe<Asset>;
   sys: Sys;
+  vergangeneKonzertTitel?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['String']['output']>;
 };
 
@@ -673,6 +697,20 @@ export type GenerellImpressumArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/generell) */
+export type GenerellKonzertTitelArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/generell) */
+export type GenerellKonzertUntertitelArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/generell) */
 export type GenerellLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -682,6 +720,13 @@ export type GenerellLinkedFromArgs = {
 export type GenerellNgRadioArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/generell) */
+export type GenerellVergangeneKonzertTitelArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -732,8 +777,29 @@ export type GenerellFilter = {
   impressum_not?: InputMaybe<Scalars['String']['input']>;
   impressum_not_contains?: InputMaybe<Scalars['String']['input']>;
   impressum_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  konzertTitel?: InputMaybe<Scalars['String']['input']>;
+  konzertTitel_contains?: InputMaybe<Scalars['String']['input']>;
+  konzertTitel_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  konzertTitel_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  konzertTitel_not?: InputMaybe<Scalars['String']['input']>;
+  konzertTitel_not_contains?: InputMaybe<Scalars['String']['input']>;
+  konzertTitel_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  konzertUntertitel?: InputMaybe<Scalars['String']['input']>;
+  konzertUntertitel_contains?: InputMaybe<Scalars['String']['input']>;
+  konzertUntertitel_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  konzertUntertitel_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  konzertUntertitel_not?: InputMaybe<Scalars['String']['input']>;
+  konzertUntertitel_not_contains?: InputMaybe<Scalars['String']['input']>;
+  konzertUntertitel_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   ngRadio_exists?: InputMaybe<Scalars['Boolean']['input']>;
   sys?: InputMaybe<SysFilter>;
+  vergangeneKonzertTitel?: InputMaybe<Scalars['String']['input']>;
+  vergangeneKonzertTitel_contains?: InputMaybe<Scalars['String']['input']>;
+  vergangeneKonzertTitel_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  vergangeneKonzertTitel_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  vergangeneKonzertTitel_not?: InputMaybe<Scalars['String']['input']>;
+  vergangeneKonzertTitel_not_contains?: InputMaybe<Scalars['String']['input']>;
+  vergangeneKonzertTitel_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   version?: InputMaybe<Scalars['String']['input']>;
   version_contains?: InputMaybe<Scalars['String']['input']>;
   version_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -769,6 +835,10 @@ export type GenerellLinkingCollectionsEntryCursorCollectionArgs = {
 };
 
 export enum GenerellOrder {
+  KonzertTitelAsc = 'konzertTitel_ASC',
+  KonzertTitelDesc = 'konzertTitel_DESC',
+  KonzertUntertitelAsc = 'konzertUntertitel_ASC',
+  KonzertUntertitelDesc = 'konzertUntertitel_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -777,6 +847,8 @@ export enum GenerellOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  VergangeneKonzertTitelAsc = 'vergangeneKonzertTitel_ASC',
+  VergangeneKonzertTitelDesc = 'vergangeneKonzertTitel_DESC',
   VersionAsc = 'version_ASC',
   VersionDesc = 'version_DESC'
 }
@@ -877,6 +949,193 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>;
 };
 
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type Konzert = Entry & _Node & {
+  __typename?: 'Konzert';
+  _id: Scalars['ID']['output'];
+  artistName?: Maybe<Scalars['String']['output']>;
+  contentfulMetadata: ContentfulMetadata;
+  datum?: Maybe<Scalars['DateTime']['output']>;
+  hoverPicture?: Maybe<Asset>;
+  linkedFrom?: Maybe<KonzertLinkingCollections>;
+  location?: Maybe<Scalars['String']['output']>;
+  sys: Sys;
+  ticketLink?: Maybe<Scalars['String']['output']>;
+  ticketNote?: Maybe<Scalars['String']['output']>;
+  venue?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertArtistNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertDatumArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertHoverPictureArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertLocationArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertTicketLinkArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertTicketNoteArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/qdh4n7yzm2nj/content_types/konzert) */
+export type KonzertVenueArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type KonzertCollection = {
+  __typename?: 'KonzertCollection';
+  items: Array<Maybe<Konzert>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type KonzertCursorCollection = {
+  __typename?: 'KonzertCursorCollection';
+  items: Array<Maybe<Konzert>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type KonzertFilter = {
+  AND?: InputMaybe<Array<InputMaybe<KonzertFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<KonzertFilter>>>;
+  artistName?: InputMaybe<Scalars['String']['input']>;
+  artistName_contains?: InputMaybe<Scalars['String']['input']>;
+  artistName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  artistName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  artistName_not?: InputMaybe<Scalars['String']['input']>;
+  artistName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  artistName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  datum?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  datum_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  datum_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_not?: InputMaybe<Scalars['DateTime']['input']>;
+  datum_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  hoverPicture_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  location_contains?: InputMaybe<Scalars['String']['input']>;
+  location_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  location_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  location_not?: InputMaybe<Scalars['String']['input']>;
+  location_not_contains?: InputMaybe<Scalars['String']['input']>;
+  location_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+  ticketLink?: InputMaybe<Scalars['String']['input']>;
+  ticketLink_contains?: InputMaybe<Scalars['String']['input']>;
+  ticketLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  ticketLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  ticketLink_not?: InputMaybe<Scalars['String']['input']>;
+  ticketLink_not_contains?: InputMaybe<Scalars['String']['input']>;
+  ticketLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  ticketNote?: InputMaybe<Scalars['String']['input']>;
+  ticketNote_contains?: InputMaybe<Scalars['String']['input']>;
+  ticketNote_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  ticketNote_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  ticketNote_not?: InputMaybe<Scalars['String']['input']>;
+  ticketNote_not_contains?: InputMaybe<Scalars['String']['input']>;
+  ticketNote_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  venue?: InputMaybe<Scalars['String']['input']>;
+  venue_contains?: InputMaybe<Scalars['String']['input']>;
+  venue_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  venue_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  venue_not?: InputMaybe<Scalars['String']['input']>;
+  venue_not_contains?: InputMaybe<Scalars['String']['input']>;
+  venue_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KonzertLinkingCollections = {
+  __typename?: 'KonzertLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  entryCursorCollection?: Maybe<EntryCursorCollection>;
+};
+
+
+export type KonzertLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type KonzertLinkingCollectionsEntryCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum KonzertOrder {
+  ArtistNameAsc = 'artistName_ASC',
+  ArtistNameDesc = 'artistName_DESC',
+  DatumAsc = 'datum_ASC',
+  DatumDesc = 'datum_DESC',
+  LocationAsc = 'location_ASC',
+  LocationDesc = 'location_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TicketLinkAsc = 'ticketLink_ASC',
+  TicketLinkDesc = 'ticketLink_DESC',
+  TicketNoteAsc = 'ticketNote_ASC',
+  TicketNoteDesc = 'ticketNote_DESC',
+  VenueAsc = 'venue_ASC',
+  VenueDesc = 'venue_DESC'
+}
+
 export type Query = {
   __typename?: 'Query';
   _node?: Maybe<_Node>;
@@ -892,6 +1151,9 @@ export type Query = {
   generell?: Maybe<Generell>;
   generellCollection?: Maybe<GenerellCollection>;
   generellCursorCollection?: Maybe<GenerellCursorCollection>;
+  konzert?: Maybe<Konzert>;
+  konzertCollection?: Maybe<KonzertCollection>;
+  konzertCursorCollection?: Maybe<KonzertCursorCollection>;
   teamMember?: Maybe<TeamMember>;
   teamMemberCollection?: Maybe<TeamMemberCollection>;
   teamMemberCursorCollection?: Maybe<TeamMemberCursorCollection>;
@@ -1027,6 +1289,37 @@ export type QueryGenerellCursorCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<GenerellFilter>;
+};
+
+
+export type QueryKonzertArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryKonzertCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<KonzertOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<KonzertFilter>;
+};
+
+
+export type QueryKonzertCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<KonzertOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<KonzertFilter>;
 };
 
 
