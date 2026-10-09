@@ -74,7 +74,7 @@ const ConcertSection: FC<Props> = ({
         <Typography
           as="h3"
           type={fonts.header.style.fontFamily}
-          fontSize="32px"
+          fontSize="34px"
           fontSizeSm="72px"
           $textalign="center"
           lineHeight="1"

@@ -1,11 +1,8 @@
-import LinkButton from '@app/components/LinkButton';
 import Typography from '@app/components/Typography/Typography';
 import fonts from '@app/fonts/fonts';
 import { Konzert } from '@app/services/graphql/types';
-import { flexColumn, flexRow } from '@app/styles/mixins';
-import { ISOToDate, ISOToDay, ISOToMonthYear } from '@app/utils/formatDate';
+import { ISOToDay, ISOToMonthYear } from '@app/utils/formatDate';
 import { FC } from 'react';
-import styled from 'styled-components';
 import { FiArrowUpRight } from 'react-icons/fi';
 import TextWithLine from '@app/components/TextWithLine';
 import CornerLines from '@app/assets/drawings/corner-lines.svg';
@@ -33,7 +30,7 @@ const ConcertRow: FC<Props> = ({ concert }) => {
   return (
     <RowContainer>
       <ColumnContainer>
-        <Typography fontSize="32px" fontSizeSm="48px" type={fonts.header.style.fontFamily}>
+        <Typography fontSize="28px" fontSizeSm="48px" type={fonts.header.style.fontFamily}>
           {concert.datum && ISOToDay(concert.datum)}
         </Typography>
         <Typography fontSize="16px" fontSizeSm="20px" type={fonts.subheader.style.fontFamily}>
@@ -42,7 +39,7 @@ const ConcertRow: FC<Props> = ({ concert }) => {
       </ColumnContainer>
 
       <LeftSide>
-        <Typography fontSize="32px" fontSizeSm="52px" type={fonts.header.style.fontFamily}>
+        <Typography fontSize="28px" fontSizeSm="52px" type={fonts.header.style.fontFamily}>
           {concert.artistName}
         </Typography>
         <LocationContainer>
