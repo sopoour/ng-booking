@@ -8,7 +8,7 @@ import useLang from '@app/hooks/useLang';
 import { flexColumn } from '@app/styles/mixins';
 import { HomePage } from '@app/types';
 import { NextPage } from 'next';
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 import { gsap } from 'gsap';
@@ -16,6 +16,26 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Stars from '@app/assets/stars';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const STARS_DATA = [
+  { className: 'star-1', styles: { left: '0%', top: '25%', width: '55px' } },
+  {
+    className: 'star-2',
+    styles: { left: '10%', top: '50%', width: '70px', transform: 'rotate(-20deg)' },
+  },
+  { className: 'star-3', styles: { left: '4%', top: '75%', width: '40px' } },
+  {
+    className: 'star-4',
+    styles: { right: '3%', top: '25%', width: '75px', transform: 'rotate(40deg)' },
+  },
+  { className: 'star-5', styles: { right: '8%', top: '55%', width: '50px' } },
+  { className: 'star-6', styles: { right: '1%', top: '85%', width: '40px' } },
+  { className: 'star-7', styles: { right: '10%', top: '110%', width: '55px' } },
+  {
+    className: 'star-8',
+    styles: { left: '1%', top: '100%', width: '45px', transform: 'rotate(-10deg)' },
+  },
+];
 
 const Root = styled(MaxWidthContainer)`
   ${flexColumn};
@@ -66,27 +86,6 @@ const StarsLayer = styled.div`
   }
 `;
 
-// 1. Data-driven configuration to avoid repetitive JSX markup
-const STARS_DATA = [
-  { className: 'star-1', styles: { left: '0%', top: '25%', width: '55px' } },
-  {
-    className: 'star-2',
-    styles: { left: '10%', top: '50%', width: '70px', transform: 'rotate(-20deg)' },
-  },
-  { className: 'star-3', styles: { left: '4%', top: '75%', width: '40px' } },
-  {
-    className: 'star-4',
-    styles: { right: '3%', top: '25%', width: '75px', transform: 'rotate(40deg)' },
-  },
-  { className: 'star-5', styles: { right: '8%', top: '55%', width: '50px' } },
-  { className: 'star-6', styles: { right: '1%', top: '85%', width: '40px' } },
-  { className: 'star-7', styles: { right: '10%', top: '110%', width: '55px' } },
-  {
-    className: 'star-8',
-    styles: { left: '1%', top: '100%', width: '45px', transform: 'rotate(-10deg)' },
-  },
-];
-
 const Home: NextPage = () => {
   const lang = useLang();
   const { data, isLoading } = useSWR<HomePage | null>(`/api/homepage?lang=${lang}`, fetcher);
@@ -95,7 +94,6 @@ const Home: NextPage = () => {
     if (isLoading) return;
 
     let ctx = gsap.context(() => {
-      // 2. Loop through each star to apply unique randomized GSAP properties
       const stars = gsap.utils.toArray('.star') as HTMLElement[];
 
       stars.forEach((star) => {
@@ -106,7 +104,7 @@ const Home: NextPage = () => {
         const randomScale = gsap.utils.random(0.9, 1.2, 0.1);
         const randomDelay = gsap.utils.random(0.1, 0.2, 0.3); // Staggered entrance delay on load
 
-        // 1. Independent Entrance Animation (Happens on page load)
+        // Entrance Animation
         gsap.fromTo(
           star,
           {
@@ -123,6 +121,7 @@ const Home: NextPage = () => {
           },
         );
 
+        // Scrolling Animation
         gsap.to(star, {
           y: randomY,
           x: randomX,
