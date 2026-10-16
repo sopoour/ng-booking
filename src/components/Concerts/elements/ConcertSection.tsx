@@ -11,9 +11,10 @@ import theme from '@app/styles/theme';
 import TextWithLine from '@app/components/TextWithLine';
 import useLang from '@app/hooks/useLang';
 
-const SectionContainer = styled.div`
+const SectionContainer = styled.section`
   ${flexColumn};
   gap: 52px;
+  z-index: 3;
 `;
 
 const TitleContainer = styled.span`
