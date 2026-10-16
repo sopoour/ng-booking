@@ -13,18 +13,18 @@ import styled from 'styled-components';
 import useSWR from 'swr';
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import Stars from '@app/assets/stars';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Root = styled(MaxWidthContainer)`
   ${flexColumn};
   gap: 84px;
-
   padding-bottom: 28px;
 
   ${({ theme }) => theme.media('sm')`
       gap: 120px;
-       padding-bottom: 40px;
+      padding-bottom: 40px;
   `};
 `;
 
@@ -37,7 +37,7 @@ const ArtistSection = styled.div`
   ${({ theme }) => theme.media('sm')`
     padding-top: 100px;
     padding-bottom: 48px;
-     gap: 150px;
+    gap: 150px;
   `};
 `;
 
@@ -58,60 +58,94 @@ const StarsLayer = styled.div`
 
   .star {
     position: absolute;
-    width: 50px;
-    height: 50px;
     fill: none;
-    stroke: #d6b8ff;
+    opacity: 0;
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  .star-1 {
-    left: 2%;
-    top: 25%;
-    width: 55px;
-  }
-
-  .star-2 {
-    right: 3%;
-    top: 45%;
-    width: 75px;
-    stroke: #b6ff38;
-  }
-
-  .star-3 {
-    left: 4%;
-    top: 75%;
-    width: 35px;
-  }
 `;
+
+// 1. Data-driven configuration to avoid repetitive JSX markup
+const STARS_DATA = [
+  { className: 'star-1', styles: { left: '0%', top: '25%', width: '55px' } },
+  {
+    className: 'star-2',
+    styles: { left: '10%', top: '50%', width: '70px', transform: 'rotate(-20deg)' },
+  },
+  { className: 'star-3', styles: { left: '4%', top: '75%', width: '40px' } },
+  {
+    className: 'star-4',
+    styles: { right: '3%', top: '25%', width: '75px', transform: 'rotate(40deg)' },
+  },
+  { className: 'star-5', styles: { right: '8%', top: '55%', width: '50px' } },
+  { className: 'star-6', styles: { right: '1%', top: '85%', width: '40px' } },
+  { className: 'star-7', styles: { right: '10%', top: '110%', width: '55px' } },
+  {
+    className: 'star-8',
+    styles: { left: '1%', top: '100%', width: '45px', transform: 'rotate(-10deg)' },
+  },
+];
 
 const Home: NextPage = () => {
   const lang = useLang();
   const { data, isLoading } = useSWR<HomePage | null>(`/api/homepage?lang=${lang}`, fetcher);
 
   useLayoutEffect(() => {
+    if (isLoading) return;
+
     let ctx = gsap.context(() => {
-      gsap.to('#stars-layer', {
-        y: -150,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#artists-section',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
+      // 2. Loop through each star to apply unique randomized GSAP properties
+      const stars = gsap.utils.toArray('.star') as HTMLElement[];
+
+      stars.forEach((star) => {
+        const randomY = gsap.utils.random(-400, -200, 10, undefined);
+        const randomX = gsap.utils.random(-60, 60, 5, undefined);
+        const randomRotation = gsap.utils.random(-20, 360, 10, undefined);
+
+        const randomScale = gsap.utils.random(0.9, 1.2, 0.1);
+        const randomDelay = gsap.utils.random(0.1, 0.2, 0.3); // Staggered entrance delay on load
+
+        // 1. Independent Entrance Animation (Happens on page load)
+        gsap.fromTo(
+          star,
+          {
+            opacity: 0,
+            scale: 0.2,
+            rotation: gsap.utils.random(-45, 45),
+          },
+          {
+            opacity: 1,
+            scale: randomScale,
+            duration: 0.8,
+            delay: randomDelay,
+            ease: 'back.out(1.6)', // Gives a nice bouncy "pop" effect
+          },
+        );
+
+        gsap.to(star, {
+          y: randomY,
+          x: randomX,
+          rotation: randomRotation,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#artists-section',
+            start: `top top`,
+            end: 'bottom -100%',
+            scrub: 1,
+          },
+        });
       });
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [isLoading]);
 
   if (isLoading) {
     return (
-      <ArtistShowCaseContainer>
+      <ArtistSection>
         <ArtistShowcaseSkeleton />
-      </ArtistShowCaseContainer>
+      </ArtistSection>
     );
   }
 
@@ -121,17 +155,16 @@ const Home: NextPage = () => {
       <Root>
         <ArtistShowCaseContainer id="artists-section">
           <StarsLayer id="stars-layer">
-            <svg className="star star-1" viewBox="0 0 100 100">
-              <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
-            </svg>
-
-            <svg className="star star-2" viewBox="0 0 100 100">
-              <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
-            </svg>
-
-            <svg className="star star-3" viewBox="0 0 100 100">
-              <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
-            </svg>
+            {STARS_DATA.map((star, index) => {
+              const StarComponent = Stars[index % Stars.length];
+              return (
+                <StarComponent
+                  key={index}
+                  className={`star ${star.className}`}
+                  style={star.styles}
+                />
+              );
+            })}
           </StarsLayer>
           <ArtistSection>
             {data?.artistCollection.items
