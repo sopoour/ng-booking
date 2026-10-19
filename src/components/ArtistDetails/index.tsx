@@ -175,9 +175,13 @@ const ArtistDetails: FC<Props> = ({ artist, lang }) => {
           <LinkOverWrapper>
             <LinkWrapper>
               {links.map((l) => (
-                <LinkButton href={l.link || ''} target="_blank" key={l.label + artist?.name}>
-                  {l.label}
-                </LinkButton>
+                <>
+                  {l.link && (
+                    <LinkButton href={l.link || ''} target="_blank" key={l.label + artist?.name}>
+                      {l.label}
+                    </LinkButton>
+                  )}
+                </>
               ))}
             </LinkWrapper>{' '}
             <StyledLinkContainer iconLinks={mappedSoMeLinks} />
